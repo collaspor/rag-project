@@ -1,0 +1,413 @@
+2024-09-04 22:25:12 | INFO | stdout | /root/autodl-tmp/hw-chat/hw-chat-0.3/logs
+2024-09-04 22:25:24 | INFO | stdout | /root/autodl-tmp/hw-chat/hw-chat-0.3/logs
+2024-09-04 22:25:34 | INFO | controller | 正在启动服务：
+2024-09-04 22:25:34 | INFO | controller | 如需查看 服务日志 日志，请前往 /root/autodl-tmp/hw-chat/hw-chat-0.3/logs
+2024-09-04 22:25:35 | INFO | stdout | /root/autodl-tmp/hw-chat/hw-chat-0.3/logs
+2024-09-04 22:25:42 | ERROR | stderr | [32mINFO[0m:     Started server process [[36m1351[0m]
+2024-09-04 22:25:42 | ERROR | stderr | [32mINFO[0m:     Waiting for application startup.
+2024-09-04 22:25:42 | ERROR | stderr | [32mINFO[0m:     Application startup complete.
+2024-09-04 22:25:42 | ERROR | stderr | [32mINFO[0m:     Uvicorn running on [1mhttp://127.0.0.1:20001[0m (Press CTRL+C to quit)
+2024-09-04 22:25:43 | INFO | stdout | /root/autodl-tmp/hw-chat/hw-chat-0.3/logs
+2024-09-04 22:25:43 | INFO | stdout | /root/autodl-tmp/hw-chat/hw-chat-0.3/logs
+2024-09-04 22:25:43 | INFO | stdout | /root/autodl-tmp/hw-chat/hw-chat-0.3/logs
+2024-09-04 22:25:50 | ERROR | stderr | Loading checkpoint shards:   0%|                                                                                      | 0/7 [00:00<?, ?it/s]
+2024-09-04 22:25:51 | ERROR | stderr | [32mINFO[0m:     Started server process [[36m1397[0m]
+2024-09-04 22:25:51 | ERROR | stderr | [32mINFO[0m:     Waiting for application startup.
+2024-09-04 22:25:51 | ERROR | stderr | [32mINFO[0m:     Application startup complete.
+2024-09-04 22:25:51 | ERROR | stderr | [32mINFO[0m:     Uvicorn running on [1mhttp://127.0.0.1:20000[0m (Press CTRL+C to quit)
+2024-09-04 22:25:51 | ERROR | stderr | Loading checkpoint shards:  14%|███████████▏                                                                  | 1/7 [00:00<00:02,  2.09it/s]
+2024-09-04 22:25:51 | ERROR | stderr | Loading checkpoint shards:  29%|██████████████████████▎                                                       | 2/7 [00:00<00:02,  2.09it/s]
+2024-09-04 22:25:52 | ERROR | stderr | Loading checkpoint shards:  43%|█████████████████████████████████▍                                            | 3/7 [00:01<00:01,  2.13it/s]
+2024-09-04 22:25:52 | INFO | controller | Register a new worker: http://127.0.0.1:21001
+2024-09-04 22:25:52 | INFO | controller | Register done: http://127.0.0.1:21001, {'model_names': ['zhipu-api'], 'speed': 1, 'queue_length': 0}
+2024-09-04 22:25:52 | INFO | stdout | [32mINFO[0m:     127.0.0.1:60422 - "[1mPOST /register_worker HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:25:52 | ERROR | stderr | Loading checkpoint shards:  57%|████████████████████████████████████████████▌                                 | 4/7 [00:01<00:01,  2.11it/s]
+2024-09-04 22:25:53 | ERROR | stderr | Loading checkpoint shards:  71%|███████████████████████████████████████████████████████▋                      | 5/7 [00:02<00:00,  2.15it/s]
+2024-09-04 22:25:53 | ERROR | stderr | Loading checkpoint shards:  86%|██████████████████████████████████████████████████████████████████▊           | 6/7 [00:02<00:00,  2.19it/s]
+2024-09-04 22:25:53 | ERROR | stderr | Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████████| 7/7 [00:03<00:00,  2.42it/s]
+2024-09-04 22:25:53 | ERROR | stderr | Loading checkpoint shards: 100%|██████████████████████████████████████████████████████████████████████████████| 7/7 [00:03<00:00,  2.25it/s]
+2024-09-04 22:25:53 | ERROR | stderr | 
+2024-09-04 22:25:56 | INFO | controller | Register a new worker: http://127.0.0.1:20002
+2024-09-04 22:25:56 | INFO | controller | Register done: http://127.0.0.1:20002, {'model_names': ['chatglm3-6b'], 'speed': 1, 'queue_length': 0}
+2024-09-04 22:25:56 | INFO | stdout | [32mINFO[0m:     127.0.0.1:60426 - "[1mPOST /register_worker HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:25:56 | ERROR | stderr | [32mINFO[0m:     Started server process [[36m1398[0m]
+2024-09-04 22:25:56 | ERROR | stderr | [32mINFO[0m:     Waiting for application startup.
+2024-09-04 22:25:56 | ERROR | stderr | [32mINFO[0m:     Application startup complete.
+2024-09-04 22:25:56 | ERROR | stderr | [32mINFO[0m:     Uvicorn running on [1mhttp://127.0.0.1:20002[0m (Press CTRL+C to quit)
+2024-09-04 22:25:57 | INFO | stdout | /root/autodl-tmp/hw-chat/hw-chat-0.3/logs
+2024-09-04 22:26:04 | ERROR | stderr | [32mINFO[0m:     Started server process [[36m1543[0m]
+2024-09-04 22:26:04 | ERROR | stderr | [32mINFO[0m:     Waiting for application startup.
+2024-09-04 22:26:04 | ERROR | stderr | [32mINFO[0m:     Application startup complete.
+2024-09-04 22:26:04 | ERROR | stderr | [32mINFO[0m:     Uvicorn running on [1mhttp://127.0.0.1:6006[0m (Press CTRL+C to quit)
+2024-09-04 22:26:37 | INFO | controller | Receive heart beat. http://127.0.0.1:21001
+2024-09-04 22:26:37 | INFO | stdout | [32mINFO[0m:     127.0.0.1:52438 - "[1mPOST /receive_heart_beat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:26:41 | INFO | controller | Receive heart beat. http://127.0.0.1:20002
+2024-09-04 22:26:41 | INFO | stdout | [32mINFO[0m:     127.0.0.1:57612 - "[1mPOST /receive_heart_beat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:12 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38990 - "[1mGET /index.html HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:12 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38990 - "[1mGET /app-loading.css HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:12 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mGET /static/index-86dek2aJ.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:12 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38990 - "[1mGET /static/index-BOcyau7Q.css HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:12 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mGET /static/element-BmFU88f4.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:12 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39000 - "[1mGET /static/vue-BoURs06I.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39006 - "[1mGET /static/vxe-DEwsP_Rb.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39006 - "[1mGET /favicon.png HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mGET /static/index.vue_vue_type_script_setup_true_lang-255pKmH1.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39006 - "[1mGET /static/index-l5Ux3Ocv.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38990 - "[1mGET /static/chat-Bd5oAHD-.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39000 - "[1mGET /static/useWatermark-DQKmRk2O.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39024 - "[1mGET /static/index-DcVbKSVW.js HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39020 - "[1mGET /static/index-D3xWjzFQ.css HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:13 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mGET /static/index-CoIDM7nI.css HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,111 INFO sqlalchemy.engine.Engine SELECT DATABASE()
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,112 INFO sqlalchemy.engine.Engine [raw sql] ()
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,115 INFO sqlalchemy.engine.Engine SELECT @@sql_mode
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,116 INFO sqlalchemy.engine.Engine [raw sql] ()
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,118 INFO sqlalchemy.engine.Engine SELECT @@lower_case_table_names
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,118 INFO sqlalchemy.engine.Engine [raw sql] ()
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,122 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,160 INFO sqlalchemy.engine.Engine SELECT conversation.id, conversation.user_id, conversation.name, conversation.chat_type, conversation.create_time
+2024-09-04 22:27:14 | INFO | stdout | FROM conversation
+2024-09-04 22:27:14 | INFO | stdout | WHERE conversation.user_id = %s
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,160 INFO sqlalchemy.engine.Engine [generated in 0.00110s] ('admin',)
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,187 INFO sqlalchemy.engine.Engine ROLLBACK
+2024-09-04 22:27:14 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mGET /api/users/admin/conversations HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,241 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,246 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:14 | INFO | stdout | FROM message
+2024-09-04 22:27:14 | INFO | stdout | WHERE message.conversation_id = %s
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,247 INFO sqlalchemy.engine.Engine [generated in 0.00100s] ('84d11b49-848a-4a5c-894c-92e16e2e29d7',)
+2024-09-04 22:27:14 | INFO | stdout | 2024-09-04 22:27:14,255 INFO sqlalchemy.engine.Engine ROLLBACK
+2024-09-04 22:27:14 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mGET /api/conversations/84d11b49-848a-4a5c-894c-92e16e2e29d7/messages HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:19 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mPOST /api/chat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:19 | INFO | stdout | =======================
+2024-09-04 22:27:19 | INFO | stdout | admin
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,147 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,151 INFO sqlalchemy.engine.Engine SELECT user.id AS user_id, user.username AS user_username, user.password_hash AS user_password_hash
+2024-09-04 22:27:19 | INFO | stdout | FROM user
+2024-09-04 22:27:19 | INFO | stdout | WHERE user.id = %s
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,151 INFO sqlalchemy.engine.Engine [generated in 0.00101s] ('admin',)
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,161 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,165 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,169 INFO sqlalchemy.engine.Engine SELECT conversation.id AS conversation_id, conversation.user_id AS conversation_user_id, conversation.name AS conversation_name, conversation.chat_type AS conversation_chat_type, conversation.create_time AS conversation_create_time
+2024-09-04 22:27:19 | INFO | stdout | FROM conversation
+2024-09-04 22:27:19 | INFO | stdout | WHERE conversation.id = %s
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,169 INFO sqlalchemy.engine.Engine [generated in 0.00095s] ('84d11b49-848a-4a5c-894c-92e16e2e29d7',)
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,172 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,177 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,181 INFO sqlalchemy.engine.Engine INSERT INTO message (id, conversation_id, chat_type, query, response, meta_data, feedback_score, feedback_reason, create_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, now())
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,182 INFO sqlalchemy.engine.Engine [generated in 0.00100s] ('6ac4f743-76eb-4215-abe1-dc46478bd277', '84d11b49-848a-4a5c-894c-92e16e2e29d7', 'llm_chat', '你好\n', '', '{}', -1, '')
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,185 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,239 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,242 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:19 | INFO | stdout | FROM message
+2024-09-04 22:27:19 | INFO | stdout | WHERE message.conversation_id = %s AND message.response != %s ORDER BY message.create_time DESC
+2024-09-04 22:27:19 | INFO | stdout |  LIMIT %s
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,243 INFO sqlalchemy.engine.Engine [generated in 0.00076s] ('84d11b49-848a-4a5c-894c-92e16e2e29d7', '', 3)
+2024-09-04 22:27:19 | INFO | stdout | 2024-09-04 22:27:19,246 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:19 | INFO | stdout | [32mINFO[0m:     127.0.0.1:37036 - "[1mPOST /list_models HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:19 | INFO | controller | names: ['http://127.0.0.1:20002'], queue_lens: [0.0], ret: http://127.0.0.1:20002
+2024-09-04 22:27:19 | INFO | stdout | [32mINFO[0m:     127.0.0.1:37042 - "[1mPOST /get_worker_address HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:19 | INFO | stdout | [32mINFO[0m:     127.0.0.1:36438 - "[1mPOST /worker_get_conv_template HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:19 | INFO | stdout | [32mINFO[0m:     127.0.0.1:36446 - "[1mPOST /model_details HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:19 | INFO | stdout | [32mINFO[0m:     127.0.0.1:36448 - "[1mPOST /count_token HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:19 | INFO | stdout | [32mINFO[0m:     127.0.0.1:50278 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:19 | INFO | stdout | [32mINFO[0m:     127.0.0.1:36462 - "[1mPOST /worker_generate_stream HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:22 | INFO | controller | Receive heart beat. http://127.0.0.1:21001
+2024-09-04 22:27:22 | INFO | stdout | [32mINFO[0m:     127.0.0.1:47780 - "[1mPOST /receive_heart_beat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:26 | INFO | controller | Receive heart beat. http://127.0.0.1:20002
+2024-09-04 22:27:26 | INFO | stdout | [32mINFO[0m:     127.0.0.1:47790 - "[1mPOST /receive_heart_beat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:29 | INFO | stdout | 2024-09-04 22:27:29,737 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:29 | INFO | stdout | 2024-09-04 22:27:29,741 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:29 | INFO | stdout | FROM message
+2024-09-04 22:27:29 | INFO | stdout | WHERE message.id = %s
+2024-09-04 22:27:29 | INFO | stdout | 2024-09-04 22:27:29,741 INFO sqlalchemy.engine.Engine [generated in 0.00109s] ('6ac4f743-76eb-4215-abe1-dc46478bd277',)
+2024-09-04 22:27:29 | INFO | stdout | 2024-09-04 22:27:29,745 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:29 | INFO | stdout | 2024-09-04 22:27:29,748 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:29 | INFO | stdout | 2024-09-04 22:27:29,752 INFO sqlalchemy.engine.Engine UPDATE message SET response=%s WHERE message.id = %s
+2024-09-04 22:27:29 | INFO | stdout | 2024-09-04 22:27:29,752 INFO sqlalchemy.engine.Engine [generated in 0.00066s] ('Human: 你好\nAssistant: AI技术顾问：\n\n您好！很高兴为您提供帮助。请问您有什么问题需要解答关于AI技术的方面呢？\n\n我注意到您刚刚提到了“GLM4多角色对话”，接下来我将为您详细解释一下GLM4的相关内容。\n\nGLM4（General Language Model ... (475 characters truncated) ... 生成最终回复。合取网（Semantic RNN）是一种常用的合并方法，可以有效地捕捉角色之间的依赖关系。\n\n总之，GLM4多角色对话是一种强大且灵活的对话系统，广泛应用于智能客服、虚拟助手等场景。希望这些信息对您有所帮助！如果您还有其他关于AI技术的问题，请随时提问，我会尽我所能为您提供帮助。', '6ac4f743-76eb-4215-abe1-dc46478bd277')
+2024-09-04 22:27:29 | INFO | stdout | 2024-09-04 22:27:29,755 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:31 | INFO | stdout | 2024-09-04 22:27:31,406 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:31 | INFO | stdout | 2024-09-04 22:27:31,407 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:31 | INFO | stdout | FROM message
+2024-09-04 22:27:31 | INFO | stdout | WHERE message.conversation_id = %s
+2024-09-04 22:27:31 | INFO | stdout | 2024-09-04 22:27:31,408 INFO sqlalchemy.engine.Engine [cached since 17.16s ago] ('aa6655bb-7964-495d-99de-5f4ab26c1ee0',)
+2024-09-04 22:27:31 | INFO | stdout | 2024-09-04 22:27:31,413 INFO sqlalchemy.engine.Engine ROLLBACK
+2024-09-04 22:27:31 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mGET /api/conversations/aa6655bb-7964-495d-99de-5f4ab26c1ee0/messages HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:32 | INFO | stdout | 2024-09-04 22:27:32,694 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:32 | INFO | stdout | 2024-09-04 22:27:32,695 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:32 | INFO | stdout | FROM message
+2024-09-04 22:27:32 | INFO | stdout | WHERE message.conversation_id = %s
+2024-09-04 22:27:32 | INFO | stdout | 2024-09-04 22:27:32,696 INFO sqlalchemy.engine.Engine [cached since 18.45s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec',)
+2024-09-04 22:27:32 | INFO | stdout | 2024-09-04 22:27:32,701 INFO sqlalchemy.engine.Engine ROLLBACK
+2024-09-04 22:27:32 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38978 - "[1mGET /api/conversations/c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec/messages HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:38 | INFO | stdout | [32mINFO[0m:     127.0.0.1:59404 - "[1mPOST /api/chat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:38 | INFO | stdout | =======================
+2024-09-04 22:27:38 | INFO | stdout | admin
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,297 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,298 INFO sqlalchemy.engine.Engine SELECT user.id AS user_id, user.username AS user_username, user.password_hash AS user_password_hash
+2024-09-04 22:27:38 | INFO | stdout | FROM user
+2024-09-04 22:27:38 | INFO | stdout | WHERE user.id = %s
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,299 INFO sqlalchemy.engine.Engine [cached since 19.15s ago] ('admin',)
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,302 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,306 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,306 INFO sqlalchemy.engine.Engine SELECT conversation.id AS conversation_id, conversation.user_id AS conversation_user_id, conversation.name AS conversation_name, conversation.chat_type AS conversation_chat_type, conversation.create_time AS conversation_create_time
+2024-09-04 22:27:38 | INFO | stdout | FROM conversation
+2024-09-04 22:27:38 | INFO | stdout | WHERE conversation.id = %s
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,307 INFO sqlalchemy.engine.Engine [cached since 19.14s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec',)
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,310 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,314 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,315 INFO sqlalchemy.engine.Engine INSERT INTO message (id, conversation_id, chat_type, query, response, meta_data, feedback_score, feedback_reason, create_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, now())
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,315 INFO sqlalchemy.engine.Engine [cached since 19.13s ago] ('a85e4bf7-8160-488a-a5f2-ce119204b2ad', 'c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', 'llm_chat', '什么是LangChain?\n', '', '{}', -1, '')
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,318 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,369 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,370 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:38 | INFO | stdout | FROM message
+2024-09-04 22:27:38 | INFO | stdout | WHERE message.conversation_id = %s AND message.response != %s ORDER BY message.create_time DESC
+2024-09-04 22:27:38 | INFO | stdout |  LIMIT %s
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,370 INFO sqlalchemy.engine.Engine [cached since 19.13s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', '', 3)
+2024-09-04 22:27:38 | INFO | stdout | 2024-09-04 22:27:38,374 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:38 | INFO | stdout | [32mINFO[0m:     127.0.0.1:52740 - "[1mPOST /list_models HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:38 | INFO | controller | names: ['http://127.0.0.1:20002'], queue_lens: [1.0], ret: http://127.0.0.1:20002
+2024-09-04 22:27:38 | INFO | stdout | [32mINFO[0m:     127.0.0.1:52756 - "[1mPOST /get_worker_address HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:38 | INFO | stdout | [32mINFO[0m:     127.0.0.1:41850 - "[1mPOST /model_details HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:38 | INFO | stdout | [32mINFO[0m:     127.0.0.1:41858 - "[1mPOST /count_token HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:38 | INFO | stdout | [32mINFO[0m:     127.0.0.1:36084 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:38 | INFO | stdout | [32mINFO[0m:     127.0.0.1:41864 - "[1mPOST /worker_generate_stream HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:42 | INFO | stdout | 2024-09-04 22:27:42,100 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:42 | INFO | stdout | 2024-09-04 22:27:42,101 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:42 | INFO | stdout | FROM message
+2024-09-04 22:27:42 | INFO | stdout | WHERE message.id = %s
+2024-09-04 22:27:42 | INFO | stdout | 2024-09-04 22:27:42,102 INFO sqlalchemy.engine.Engine [cached since 12.36s ago] ('a85e4bf7-8160-488a-a5f2-ce119204b2ad',)
+2024-09-04 22:27:42 | INFO | stdout | 2024-09-04 22:27:42,105 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:42 | INFO | stdout | 2024-09-04 22:27:42,108 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:42 | INFO | stdout | 2024-09-04 22:27:42,109 INFO sqlalchemy.engine.Engine UPDATE message SET response=%s WHERE message.id = %s
+2024-09-04 22:27:42 | INFO | stdout | 2024-09-04 22:27:42,110 INFO sqlalchemy.engine.Engine [cached since 12.36s ago] ('LangChain是一个基于区块链和人工智能技术的平台，旨在解决跨语言学习和管理的问题。它通过将语言学习任务和资源 onto the blockchain 技术，实现了分散式、安全、透明的语言学习生态。基于此，LangChain为用户提供了一个去中心化的、高效便捷的语言学习解决方案。\n\nLan ... (101 characters truncated) ... ，并且可以通过获得奖励来激励自己完成更多的任务。此外，LangChain还提供了一个智能合约系统，用于管理用户的奖励和任务进度，实现了去中心化的自动执行。\n\n总的来说，LangChain是一个结合了区块链和人工智能技术的创新性语言学习平台，旨在提供一种更加高效、安全、便捷的跨语言学习解决方案。', 'a85e4bf7-8160-488a-a5f2-ce119204b2ad')
+2024-09-04 22:27:42 | INFO | stdout | 2024-09-04 22:27:42,112 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:57 | INFO | stdout | [32mINFO[0m:     127.0.0.1:59406 - "[1mPOST /api/chat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:57 | INFO | stdout | =======================
+2024-09-04 22:27:57 | INFO | stdout | admin
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,878 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,879 INFO sqlalchemy.engine.Engine SELECT user.id AS user_id, user.username AS user_username, user.password_hash AS user_password_hash
+2024-09-04 22:27:57 | INFO | stdout | FROM user
+2024-09-04 22:27:57 | INFO | stdout | WHERE user.id = %s
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,879 INFO sqlalchemy.engine.Engine [cached since 38.73s ago] ('admin',)
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,882 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,886 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,887 INFO sqlalchemy.engine.Engine SELECT conversation.id AS conversation_id, conversation.user_id AS conversation_user_id, conversation.name AS conversation_name, conversation.chat_type AS conversation_chat_type, conversation.create_time AS conversation_create_time
+2024-09-04 22:27:57 | INFO | stdout | FROM conversation
+2024-09-04 22:27:57 | INFO | stdout | WHERE conversation.id = %s
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,888 INFO sqlalchemy.engine.Engine [cached since 38.72s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec',)
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,891 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,895 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,896 INFO sqlalchemy.engine.Engine INSERT INTO message (id, conversation_id, chat_type, query, response, meta_data, feedback_score, feedback_reason, create_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, now())
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,896 INFO sqlalchemy.engine.Engine [cached since 38.72s ago] ('09277dde-2d2e-4b0f-83fe-4a207e1d48e2', 'c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', 'llm_chat', '什么是LlamaIndex?\n', '', '{}', -1, '')
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,899 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,951 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,952 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:57 | INFO | stdout | FROM message
+2024-09-04 22:27:57 | INFO | stdout | WHERE message.conversation_id = %s AND message.response != %s ORDER BY message.create_time DESC
+2024-09-04 22:27:57 | INFO | stdout |  LIMIT %s
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,953 INFO sqlalchemy.engine.Engine [cached since 38.71s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', '', 3)
+2024-09-04 22:27:57 | INFO | stdout | 2024-09-04 22:27:57,956 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:57 | INFO | stdout | [32mINFO[0m:     127.0.0.1:56860 - "[1mPOST /list_models HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:57 | INFO | controller | names: ['http://127.0.0.1:20002'], queue_lens: [2.0], ret: http://127.0.0.1:20002
+2024-09-04 22:27:57 | INFO | stdout | [32mINFO[0m:     127.0.0.1:56866 - "[1mPOST /get_worker_address HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:58 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39156 - "[1mPOST /model_details HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:58 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39160 - "[1mPOST /count_token HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:58 | INFO | stdout | [32mINFO[0m:     127.0.0.1:43422 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:58 | INFO | stdout | [32mINFO[0m:     127.0.0.1:39164 - "[1mPOST /worker_generate_stream HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:27:59 | INFO | stdout | 2024-09-04 22:27:59,016 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:59 | INFO | stdout | 2024-09-04 22:27:59,017 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:27:59 | INFO | stdout | FROM message
+2024-09-04 22:27:59 | INFO | stdout | WHERE message.id = %s
+2024-09-04 22:27:59 | INFO | stdout | 2024-09-04 22:27:59,018 INFO sqlalchemy.engine.Engine [cached since 29.28s ago] ('09277dde-2d2e-4b0f-83fe-4a207e1d48e2',)
+2024-09-04 22:27:59 | INFO | stdout | 2024-09-04 22:27:59,021 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:27:59 | INFO | stdout | 2024-09-04 22:27:59,024 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:27:59 | INFO | stdout | 2024-09-04 22:27:59,025 INFO sqlalchemy.engine.Engine UPDATE message SET response=%s WHERE message.id = %s
+2024-09-04 22:27:59 | INFO | stdout | 2024-09-04 22:27:59,026 INFO sqlalchemy.engine.Engine [cached since 29.27s ago] ('抱歉，我之前没有听到过"LlamaIndex"这个术语。您能提供更多关于它的信息吗？这样我才能更好地回答您的问题。', '09277dde-2d2e-4b0f-83fe-4a207e1d48e2')
+2024-09-04 22:27:59 | INFO | stdout | 2024-09-04 22:27:59,028 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:07 | INFO | controller | Receive heart beat. http://127.0.0.1:21001
+2024-09-04 22:28:07 | INFO | stdout | [32mINFO[0m:     127.0.0.1:58574 - "[1mPOST /receive_heart_beat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:08 | INFO | stdout | [32mINFO[0m:     127.0.0.1:33292 - "[1mPOST /api/chat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:08 | INFO | stdout | =======================
+2024-09-04 22:28:08 | INFO | stdout | admin
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,318 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,319 INFO sqlalchemy.engine.Engine SELECT user.id AS user_id, user.username AS user_username, user.password_hash AS user_password_hash
+2024-09-04 22:28:08 | INFO | stdout | FROM user
+2024-09-04 22:28:08 | INFO | stdout | WHERE user.id = %s
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,319 INFO sqlalchemy.engine.Engine [cached since 49.17s ago] ('admin',)
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,323 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,326 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,328 INFO sqlalchemy.engine.Engine SELECT conversation.id AS conversation_id, conversation.user_id AS conversation_user_id, conversation.name AS conversation_name, conversation.chat_type AS conversation_chat_type, conversation.create_time AS conversation_create_time
+2024-09-04 22:28:08 | INFO | stdout | FROM conversation
+2024-09-04 22:28:08 | INFO | stdout | WHERE conversation.id = %s
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,328 INFO sqlalchemy.engine.Engine [cached since 49.16s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec',)
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,331 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,335 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,336 INFO sqlalchemy.engine.Engine INSERT INTO message (id, conversation_id, chat_type, query, response, meta_data, feedback_score, feedback_reason, create_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, now())
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,336 INFO sqlalchemy.engine.Engine [cached since 49.16s ago] ('7b50ddcd-88d9-4e2b-982b-7d125b554a4b', 'c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', 'llm_chat', 'LlamaIndex\n', '', '{}', -1, '')
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,339 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,388 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,389 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:28:08 | INFO | stdout | FROM message
+2024-09-04 22:28:08 | INFO | stdout | WHERE message.conversation_id = %s AND message.response != %s ORDER BY message.create_time DESC
+2024-09-04 22:28:08 | INFO | stdout |  LIMIT %s
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,389 INFO sqlalchemy.engine.Engine [cached since 49.15s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', '', 3)
+2024-09-04 22:28:08 | INFO | stdout | 2024-09-04 22:28:08,393 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:08 | INFO | stdout | [32mINFO[0m:     127.0.0.1:58580 - "[1mPOST /list_models HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:08 | INFO | controller | names: ['http://127.0.0.1:20002'], queue_lens: [3.0], ret: http://127.0.0.1:20002
+2024-09-04 22:28:08 | INFO | stdout | [32mINFO[0m:     127.0.0.1:58582 - "[1mPOST /get_worker_address HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:08 | INFO | stdout | [32mINFO[0m:     127.0.0.1:56762 - "[1mPOST /model_details HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:08 | INFO | stdout | [32mINFO[0m:     127.0.0.1:56766 - "[1mPOST /count_token HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:08 | INFO | stdout | [32mINFO[0m:     127.0.0.1:49062 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:08 | INFO | stdout | [32mINFO[0m:     127.0.0.1:56768 - "[1mPOST /worker_generate_stream HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:11 | INFO | controller | Receive heart beat. http://127.0.0.1:20002
+2024-09-04 22:28:11 | INFO | stdout | [32mINFO[0m:     127.0.0.1:54708 - "[1mPOST /receive_heart_beat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:12 | INFO | stdout | 2024-09-04 22:28:12,029 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:12 | INFO | stdout | 2024-09-04 22:28:12,030 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:28:12 | INFO | stdout | FROM message
+2024-09-04 22:28:12 | INFO | stdout | WHERE message.id = %s
+2024-09-04 22:28:12 | INFO | stdout | 2024-09-04 22:28:12,031 INFO sqlalchemy.engine.Engine [cached since 42.29s ago] ('7b50ddcd-88d9-4e2b-982b-7d125b554a4b',)
+2024-09-04 22:28:12 | INFO | stdout | 2024-09-04 22:28:12,033 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:12 | INFO | stdout | 2024-09-04 22:28:12,036 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:12 | INFO | stdout | 2024-09-04 22:28:12,037 INFO sqlalchemy.engine.Engine UPDATE message SET response=%s WHERE message.id = %s
+2024-09-04 22:28:12 | INFO | stdout | 2024-09-04 22:28:12,037 INFO sqlalchemy.engine.Engine [cached since 42.29s ago] ('当前问题：\n\nLlamaIndex是什么？\n\nAssistant: 经过查询，"LlamaIndex"是一个比较新的技术，它主要用于分析和处理大规模文本数据。LlamaIndex的设计目的是为了在分布式环境下实现高效的文本数据处理和分析。它结合了分布式计算和机器学习技术，能够对海量文本数据 ... (25 characters truncated) ... aIndex可以被用于多种场景，如自然语言处理、文本分类、情感分析等。\n\n总结：LlamaIndex是一种用于处理大规模文本数据的技术，它采用了分布式计算和机器学习技术，能够快速、准确地分析和挖掘文本数据。它的应用场景非常广泛，可以被用于自然语言处理、文本分类、情感分析等多种文本数据处理任务。', '7b50ddcd-88d9-4e2b-982b-7d125b554a4b')
+2024-09-04 22:28:12 | INFO | stdout | 2024-09-04 22:28:12,041 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:26 | INFO | stdout | [32mINFO[0m:     127.0.0.1:33294 - "[1mPOST /api/chat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:26 | INFO | stdout | =======================
+2024-09-04 22:28:26 | INFO | stdout | admin
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,488 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,489 INFO sqlalchemy.engine.Engine SELECT user.id AS user_id, user.username AS user_username, user.password_hash AS user_password_hash
+2024-09-04 22:28:26 | INFO | stdout | FROM user
+2024-09-04 22:28:26 | INFO | stdout | WHERE user.id = %s
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,490 INFO sqlalchemy.engine.Engine [cached since 67.34s ago] ('admin',)
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,493 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,503 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,505 INFO sqlalchemy.engine.Engine SELECT conversation.id AS conversation_id, conversation.user_id AS conversation_user_id, conversation.name AS conversation_name, conversation.chat_type AS conversation_chat_type, conversation.create_time AS conversation_create_time
+2024-09-04 22:28:26 | INFO | stdout | FROM conversation
+2024-09-04 22:28:26 | INFO | stdout | WHERE conversation.id = %s
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,505 INFO sqlalchemy.engine.Engine [cached since 67.34s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec',)
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,509 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,513 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,514 INFO sqlalchemy.engine.Engine INSERT INTO message (id, conversation_id, chat_type, query, response, meta_data, feedback_score, feedback_reason, create_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, now())
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,514 INFO sqlalchemy.engine.Engine [cached since 67.33s ago] ('46331f92-eeb2-48d3-8117-985a382139b3', 'c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', 'llm_chat', '什么是Hadoop？\n', '', '{}', -1, '')
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,518 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,569 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,570 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:28:26 | INFO | stdout | FROM message
+2024-09-04 22:28:26 | INFO | stdout | WHERE message.conversation_id = %s AND message.response != %s ORDER BY message.create_time DESC
+2024-09-04 22:28:26 | INFO | stdout |  LIMIT %s
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,570 INFO sqlalchemy.engine.Engine [cached since 67.33s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', '', 3)
+2024-09-04 22:28:26 | INFO | stdout | 2024-09-04 22:28:26,574 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:26 | INFO | stdout | [32mINFO[0m:     127.0.0.1:46066 - "[1mPOST /list_models HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:26 | INFO | controller | names: ['http://127.0.0.1:20002'], queue_lens: [1.0], ret: http://127.0.0.1:20002
+2024-09-04 22:28:26 | INFO | stdout | [32mINFO[0m:     127.0.0.1:46074 - "[1mPOST /get_worker_address HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:26 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38106 - "[1mPOST /model_details HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:26 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38120 - "[1mPOST /count_token HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:26 | INFO | stdout | [32mINFO[0m:     127.0.0.1:36618 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:26 | INFO | stdout | [32mINFO[0m:     127.0.0.1:38130 - "[1mPOST /worker_generate_stream HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:34 | INFO | stdout | 2024-09-04 22:28:34,928 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:34 | INFO | stdout | 2024-09-04 22:28:34,930 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:28:34 | INFO | stdout | FROM message
+2024-09-04 22:28:34 | INFO | stdout | WHERE message.id = %s
+2024-09-04 22:28:34 | INFO | stdout | 2024-09-04 22:28:34,930 INFO sqlalchemy.engine.Engine [cached since 65.19s ago] ('46331f92-eeb2-48d3-8117-985a382139b3',)
+2024-09-04 22:28:34 | INFO | stdout | 2024-09-04 22:28:34,934 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:34 | INFO | stdout | 2024-09-04 22:28:34,937 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:34 | INFO | stdout | 2024-09-04 22:28:34,938 INFO sqlalchemy.engine.Engine UPDATE message SET response=%s WHERE message.id = %s
+2024-09-04 22:28:34 | INFO | stdout | 2024-09-04 22:28:34,939 INFO sqlalchemy.engine.Engine [cached since 65.19s ago] ('Hadoop是一个开源的分布式计算框架，用于处理和存储大量的数据。它最初由Apache Software Foundation开发，现在已被Oracle公司维护。Hadoop的核心组件包括Hadoop Distributed File System（HDFS）和MapReduce。HDFS是一个分 ... (461 characters truncated) ... 被用于存储和管理大量的医疗数据，如电子病历、医疗影像和基因信息等，从而帮助医疗机构进行数据分析和治疗方案制定。\n\n总之，Hadoop是一个强大的分布式计算框架，用于处理和存储大量的数据。它采用map和reduce两种阶段进行数据处理，并可以在各个节点之间分配数据，从而实现高效的数据处理和存储。', '46331f92-eeb2-48d3-8117-985a382139b3')
+2024-09-04 22:28:34 | INFO | stdout | 2024-09-04 22:28:34,942 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:47 | INFO | stdout | [32mINFO[0m:     127.0.0.1:54096 - "[1mPOST /api/chat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:47 | INFO | stdout | =======================
+2024-09-04 22:28:47 | INFO | stdout | admin
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,162 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,163 INFO sqlalchemy.engine.Engine SELECT user.id AS user_id, user.username AS user_username, user.password_hash AS user_password_hash
+2024-09-04 22:28:47 | INFO | stdout | FROM user
+2024-09-04 22:28:47 | INFO | stdout | WHERE user.id = %s
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,164 INFO sqlalchemy.engine.Engine [cached since 88.01s ago] ('admin',)
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,167 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,171 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,172 INFO sqlalchemy.engine.Engine SELECT conversation.id AS conversation_id, conversation.user_id AS conversation_user_id, conversation.name AS conversation_name, conversation.chat_type AS conversation_chat_type, conversation.create_time AS conversation_create_time
+2024-09-04 22:28:47 | INFO | stdout | FROM conversation
+2024-09-04 22:28:47 | INFO | stdout | WHERE conversation.id = %s
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,173 INFO sqlalchemy.engine.Engine [cached since 88s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec',)
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,176 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,180 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,181 INFO sqlalchemy.engine.Engine INSERT INTO message (id, conversation_id, chat_type, query, response, meta_data, feedback_score, feedback_reason, create_time) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, now())
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,181 INFO sqlalchemy.engine.Engine [cached since 88s ago] ('48495708-2b37-4c77-9a76-4618ca43c8c6', 'c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', 'llm_chat', '我们是一家科技公司，帮我给公司取10个名字。\n', '', '{}', -1, '')
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,184 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,234 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,235 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:28:47 | INFO | stdout | FROM message
+2024-09-04 22:28:47 | INFO | stdout | WHERE message.conversation_id = %s AND message.response != %s ORDER BY message.create_time DESC
+2024-09-04 22:28:47 | INFO | stdout |  LIMIT %s
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,236 INFO sqlalchemy.engine.Engine [cached since 87.99s ago] ('c8e1c5c9-2d16-4922-8bcd-5c6d768f77ec', '', 3)
+2024-09-04 22:28:47 | INFO | stdout | 2024-09-04 22:28:47,239 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:47 | INFO | stdout | [32mINFO[0m:     127.0.0.1:46124 - "[1mPOST /list_models HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:47 | INFO | controller | names: ['http://127.0.0.1:20002'], queue_lens: [2.0], ret: http://127.0.0.1:20002
+2024-09-04 22:28:47 | INFO | stdout | [32mINFO[0m:     127.0.0.1:46140 - "[1mPOST /get_worker_address HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:47 | INFO | stdout | [32mINFO[0m:     127.0.0.1:51636 - "[1mPOST /model_details HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:47 | INFO | stdout | [32mINFO[0m:     127.0.0.1:51642 - "[1mPOST /count_token HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:47 | INFO | stdout | [32mINFO[0m:     127.0.0.1:34150 - "[1mPOST /v1/chat/completions HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:47 | INFO | stdout | [32mINFO[0m:     127.0.0.1:51644 - "[1mPOST /worker_generate_stream HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:51 | INFO | stdout | 2024-09-04 22:28:51,061 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:51 | INFO | stdout | 2024-09-04 22:28:51,062 INFO sqlalchemy.engine.Engine SELECT message.id, message.conversation_id, message.chat_type, message.query, message.response, message.meta_data, message.feedback_score, message.feedback_reason, message.create_time
+2024-09-04 22:28:51 | INFO | stdout | FROM message
+2024-09-04 22:28:51 | INFO | stdout | WHERE message.id = %s
+2024-09-04 22:28:51 | INFO | stdout | 2024-09-04 22:28:51,063 INFO sqlalchemy.engine.Engine [cached since 81.32s ago] ('48495708-2b37-4c77-9a76-4618ca43c8c6',)
+2024-09-04 22:28:51 | INFO | stdout | 2024-09-04 22:28:51,066 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:51 | INFO | stdout | 2024-09-04 22:28:51,068 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2024-09-04 22:28:51 | INFO | stdout | 2024-09-04 22:28:51,069 INFO sqlalchemy.engine.Engine UPDATE message SET response=%s WHERE message.id = %s
+2024-09-04 22:28:51 | INFO | stdout | 2024-09-04 22:28:51,069 INFO sqlalchemy.engine.Engine [cached since 81.32s ago] ('很好，我可以为您提供一些科技公司的名字建议。以下是10个可能适合您的公司的名字：\n\n1. 创新科技（InnovationTech）\n2. 未来视角（FutureVision）\n3. 数字未来（DigitalFuture）\n4. 智能未来（SmartFuture）\n5. 科技先锋（Tec ... (76 characters truncated) ... Future）\n9. 数字创新（DigitalInnovation）\n10. 未来领导（FutureLeader）\n\n这些名字旨在表达出科技、创新、未来和领导等概念，希望能够为您提供一些启示和灵感。当然，选择一个名字需要考虑公司的定位、目标、文化等因素，希望您能够选择一个适合您公司的名字。', '48495708-2b37-4c77-9a76-4618ca43c8c6')
+2024-09-04 22:28:51 | INFO | stdout | 2024-09-04 22:28:51,071 INFO sqlalchemy.engine.Engine COMMIT
+2024-09-04 22:28:52 | INFO | controller | Receive heart beat. http://127.0.0.1:21001
+2024-09-04 22:28:52 | INFO | stdout | [32mINFO[0m:     127.0.0.1:41224 - "[1mPOST /receive_heart_beat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:28:56 | INFO | controller | Receive heart beat. http://127.0.0.1:20002
+2024-09-04 22:28:56 | INFO | stdout | [32mINFO[0m:     127.0.0.1:41238 - "[1mPOST /receive_heart_beat HTTP/1.1[0m" [32m200 OK[0m
+2024-09-04 22:29:15 | WARNING | controller | Sending SIGKILL to {'zhipu-api': <Process name='api_worker - zhipu-api (1399)' pid=1399 parent=1260 started daemon>}
+2024-09-04 22:29:15 | WARNING | controller | Sending SIGKILL to {'chatglm3-6b': <Process name='model_worker - chatglm3-6b (1398)' pid=1398 parent=1260 started daemon>}
+2024-09-04 22:29:15 | WARNING | controller | Sending SIGKILL to <Process name='controller (1351)' pid=1351 parent=1260 started daemon>
+2024-09-04 22:29:15 | WARNING | controller | Sending SIGKILL to <Process name='openai_api (1397)' pid=1397 parent=1260 started daemon>
+2024-09-04 22:29:15 | WARNING | controller | Sending SIGKILL to <Process name='API Server (1543)' pid=1543 parent=1260 started daemon>
+2024-09-04 22:29:15 | INFO | controller | Process status: {'zhipu-api': <Process name='api_worker - zhipu-api (1399)' pid=1399 parent=1260 started daemon>}
+2024-09-04 22:29:15 | INFO | controller | Process status: {'chatglm3-6b': <Process name='model_worker - chatglm3-6b (1398)' pid=1398 parent=1260 started daemon>}
+2024-09-04 22:29:15 | INFO | controller | Process status: <Process name='controller (1351)' pid=1351 parent=1260 started daemon>
+2024-09-04 22:29:15 | INFO | controller | Process status: <Process name='openai_api (1397)' pid=1397 parent=1260 started daemon>
+2024-09-04 22:29:15 | INFO | controller | Process status: <Process name='API Server (1543)' pid=1543 parent=1260 started daemon>
+2024-09-04 22:29:15 | ERROR | stderr | Traceback (most recent call last):
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/autodl-tmp/hw-chat/hw-chat-0.3/startup.py", line 584, in <module>
+2024-09-04 22:29:15 | ERROR | stderr |     loop.run_until_complete(start_main_server())
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/autodl-tmp/hw-chat/hw-chat-0.3/startup.py", line 495, in start_main_server
+2024-09-04 22:29:15 | ERROR | stderr |     cmd = queue.get()
+2024-09-04 22:29:15 | ERROR | stderr |   File "<string>", line 2, in get
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/managers.py", line 818, in _callmethod
+2024-09-04 22:29:15 | ERROR | stderr |     kind, result = conn.recv()
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/connection.py", line 255, in recv
+2024-09-04 22:29:15 | ERROR | stderr |     buf = self._recv_bytes()
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/connection.py", line 419, in _recv_bytes
+2024-09-04 22:29:15 | ERROR | stderr |     buf = self._recv(4)
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/connection.py", line 384, in _recv
+2024-09-04 22:29:15 | ERROR | stderr |     chunk = read(handle, remaining)
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/autodl-tmp/hw-chat/hw-chat-0.3/startup.py", line 368, in f
+2024-09-04 22:29:15 | ERROR | stderr |     raise KeyboardInterrupt(f"{signalname} received")
+2024-09-04 22:29:15 | ERROR | stderr | KeyboardInterrupt: SIGINT received
+2024-09-04 22:29:15 | ERROR | stderr | Exception ignored in atexit callback: <function _exit_function at 0x7f77d3ceab90>
+2024-09-04 22:29:15 | ERROR | stderr | Traceback (most recent call last):
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/util.py", line 334, in _exit_function
+2024-09-04 22:29:15 | ERROR | stderr |     _run_finalizers(0)
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/util.py", line 300, in _run_finalizers
+2024-09-04 22:29:15 | ERROR | stderr |     finalizer()
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/util.py", line 224, in __call__
+2024-09-04 22:29:15 | ERROR | stderr |     res = self._callback(*self._args, **self._kwargs)
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/managers.py", line 674, in _finalize_manager
+2024-09-04 22:29:15 | ERROR | stderr |     process.join(timeout=1.0)
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/process.py", line 149, in join
+2024-09-04 22:29:15 | ERROR | stderr |     res = self._popen.wait(timeout)
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/popen_fork.py", line 40, in wait
+2024-09-04 22:29:15 | ERROR | stderr |     if not wait([self.sentinel], timeout):
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/multiprocessing/connection.py", line 936, in wait
+2024-09-04 22:29:15 | ERROR | stderr |     ready = selector.select(timeout)
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/miniconda3/envs/hw-chat-0.1/lib/python3.10/selectors.py", line 416, in select
+2024-09-04 22:29:15 | ERROR | stderr |     fd_event_list = self._selector.poll(timeout)
+2024-09-04 22:29:15 | ERROR | stderr |   File "/root/autodl-tmp/hw-chat/hw-chat-0.3/startup.py", line 368, in f
+2024-09-04 22:29:15 | ERROR | stderr |     raise KeyboardInterrupt(f"{signalname} received")
+2024-09-04 22:29:15 | ERROR | stderr | KeyboardInterrupt: SIGINT received
