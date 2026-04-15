@@ -23,14 +23,14 @@ generator_model_path: /root/autodl-tmp/data/ZhipuAI/chatglm3-6b
 save_dir: /root/autodl-tmp/hw-chat/hw-chat-0.3/hwrag/data/result
 
 # 数据集名称，仅用于结果目录命名和评测标识。
-dataset_name: test_2
+dataset_name: test_3
 
-# 要加载并运行的 split 列表。文件名需与 split 名称一致，例如 test_2 -> test_2.jsonl。
+# 要加载并运行的 split 列表。文件名需与 split 名称一致，例如 test_3 -> test_3.jsonl。
 split:
-  - test_2
+  - test_3
 
 # 测试采样数量。设为 0 或不小于数据总量时，可视为跑完整数据集。
-test_sample_num: 1000
+test_sample_num: 88
 
 # 是否随机采样测试集。false 表示按文件顺序取样。
 random_sample: false
@@ -115,19 +115,36 @@ metrics:
   - f1
   - precision
   - recall
+  - rouge-l
+  - retrieval_recall
+  - retrieval_precision
+
+# 评测指标附加配置。
+metric_setting:
+  # 检索指标统计时使用的 top-k。
+  retrieval_recall_topk: 3
 
 # 生成框架类型。fschat 表示通过 FastChat 接入模型。
 framework: fschat
 
 # Prompt 模板配置。
 prompt_template:
-  # 系统提示词，用于约束模型基于检索文档回答，减少幻觉。
+  # 系统提示词，用于约束模型基于检索文档回答，并尽量输出短答案。
   system_prompt: |
-    根据给定文档回答问题。只给出答案，不要输出其他无关内容。
+    你是一个企业知识库问答助手。
+    请严格根据给定参考文档回答问题，不要使用参考文档之外的知识。
+    如果参考文档无法直接支持答案，请明确回答“根据提供的文档无法确定”。
+    只输出最终答案，不要输出分析过程、背景解释、额外补充或引用说明。
+    答案尽量精炼，优先控制在1到2句。
     下面是给定的参考文档：
     {reference}
 
-  # 用户提示词，插入具体问题。
+  # 用户提示词，进一步约束输出风格，减少扩写。
   user_prompt: |
     问题: {question}
+    要求:
+    1. 只回答问题核心结论。
+    2. 不要复述题目。
+    3. 不要输出与问题无关的信息。
+    4. 如果文档中没有明确答案，直接回答“根据提供的文档无法确定”。
     答案:
