@@ -14,62 +14,59 @@ import os
 import json
 
 
-def load_corpus(dir_path):
+DEFAULT_KEYWORDS = [
+    '智能教育',
+    '教育大模型',
+    '大模型',
+    '机器学习',
+    '机器学习算法',
+    '深度学习',
+    '自然语言处理'
+]
+
+
+def iter_files(path):
+    """遍历位于根路径下的所有文件。"""
+    if os.path.isfile(path):
+        yield path
+    elif os.path.isdir(path):
+        for dirpath, _, filenames in os.walk(path):
+            for file_name in filenames:
+                yield os.path.join(dirpath, file_name)
+    else:
+        raise RuntimeError('Path %s is invalid' % path)
+
+
+def read_jsonl_file(file_path, keywords):
+    """读取单个 .jsonl 文件，返回命中关键词的条目。"""
+    matched_items = []
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            json_data = json.loads(line)
+            if any(keyword in json_data['text'] for keyword in keywords):
+                matched_items.append(json_data)
+    return matched_items
+
+
+def load_corpus(dir_path, keywords, max_articles, num_workers):
     """
     该函数从给定目录路径读取 .jsonl 文件，提取其文本字段中包含指定关键词的 JSON 条目。
     一旦语料库中的条目数量达到 设定的值 ，就停止添加。此外，它还利用多线程来加速文件处理。
 
     """
-    # 定义要在文本文件中查找的关键词列表
-    keywords = [
-        '智能教育',
-        '大模型',
-        '机器学习',
-        '深度学习',
-        '算法',
-        '自然语言处理'
-    ]
-    def iter_files(path):
-        """遍历位于根路径下的所有文件。"""
-        if os.path.isfile(path):
-
-            # 如果路径是文件，直接返回该文件
-            yield path
-        elif os.path.isdir(path):
-
-            # 如果路径是目录，遍历该目录中的每个文件
-            for dirpath, _, filenames in os.walk(path):
-                for f in filenames:
-                    yield os.path.join(dirpath, f)
-        else:
-
-            # 如果路径既不是目录也不是文件，抛出错误
-            raise RuntimeError('Path %s is invalid' % path)
-
-    def read_jsonl_file(file_path):
-        """读取 .jsonl 文件的行，并将相关数据添加到语料库中。"""
-        with open(file_path, 'r', encoding='utf-8') as f:
-            for line in f:
-                json_data = json.loads(line)
-                # 检查 JSON 数据的文本字段中是否包含任何关键词
-                if any(keyword in json_data['text'] for keyword in keywords):
-                    corpus.append(json_data)
-
-                    # 如果语料库大小达到 90，停止添加
-                    if len(corpus) == 90:
-                        break
-
     # 从目录中收集所有文件路径
-    all_files = [file for file in iter_files(dir_path)]
+    all_files = sorted(iter_files(dir_path))
 
     # 初始化语料库列表
     corpus = []
 
-    # 使用 ThreadPoolExecutor 并行读取文件
-    with ThreadPoolExecutor(max_workers=args.num_workers) as executor:
-        # 提交任务以读取每个文件
-        for file_path in all_files:
-            executor.submit(read_jsonl_file, file_path)
+    # 在主线程统一截断，避免并发下追加过量数据。
+    with ThreadPoolExecutor(max_workers=num_workers) as executor:
+        for matched_items in executor.map(lambda path: read_jsonl_file(path, keywords), all_files):
+            if len(corpus) >= max_articles:
+                break
+            remain = max_articles - len(corpus)
+            corpus.extend(matched_items[:remain])
     # 返回填充好的语料库
     return corpus
 
@@ -241,6 +238,8 @@ if __name__ == '__main__':
     parser.add_argument('--seg_size', default=None, type=int)
     parser.add_argument('--stride', default=None, type=int)
     parser.add_argument('--num_workers', default=4, type=int)
+    parser.add_argument('--max_articles', default=90, type=int)
+    parser.add_argument('--keywords', nargs='*', default=None)
     parser.add_argument('--save_path', type=str, default='clean_corpus.jsonl')
     args = parser.parse_args()
 
@@ -257,7 +256,10 @@ if __name__ == '__main__':
                     '--process', str(args.num_workers),
                     args.dump_path])
     # 载入处理后的语料库
-    corpus = load_corpus(temp_dir)
+    keywords = args.keywords if args.keywords else DEFAULT_KEYWORDS
+    print(f"使用关键词: {keywords}")
+    print(f"最多保留文章数: {args.max_articles}")
+    corpus = load_corpus(temp_dir, keywords, args.max_articles, args.num_workers)
 
     # 加载Spacy中文模型
     nlp = spacy.load("zh_core_web_lg")
