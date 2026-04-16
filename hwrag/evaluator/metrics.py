@@ -18,12 +18,101 @@ def tokenize_text(text: str):
     if not normalized:
         return []
 
-    # `normalize_answer` is English-oriented and does not segment Chinese.
-    # For Chinese-heavy text, character-level overlap is more stable than whitespace split.
+    # 中文优先尝试分词，分词不可用时再退化到字符级。
     if re.search(r"[\u4e00-\u9fff]", normalized):
+        try:
+            import jieba
+
+            segmented_tokens = [token.strip() for token in jieba.lcut(normalized) if token.strip()]
+            if segmented_tokens:
+                return segmented_tokens
+        except Exception:
+            pass
+
         return [char for char in normalized if not char.isspace()]
 
     return normalized.split()
+
+
+def filter_meaningful_tokens(tokens):
+    filtered_tokens = []
+    for token in tokens:
+        cleaned_token = token.strip()
+        if not cleaned_token:
+            continue
+
+        if re.fullmatch(r"[a-z0-9]+", cleaned_token):
+            filtered_tokens.append(cleaned_token)
+            continue
+
+        if re.search(r"[\u4e00-\u9fff]", cleaned_token):
+            if len(cleaned_token) >= 2:
+                filtered_tokens.append(cleaned_token)
+            continue
+
+        if len(cleaned_token) >= 2:
+            filtered_tokens.append(cleaned_token)
+
+    return filtered_tokens or tokens
+
+
+def token_overlap_ratio(source_tokens, target_tokens):
+    source_tokens = filter_meaningful_tokens(source_tokens)
+    source_counter = Counter(source_tokens)
+    target_counter = Counter(target_tokens)
+    if not source_counter:
+        return 0.0
+
+    overlap = source_counter & target_counter
+    overlap_count = sum(overlap.values())
+    total_count = sum(source_counter.values())
+    if total_count == 0:
+        return 0.0
+    return overlap_count / total_count
+
+
+def get_retrieval_match_threshold(config):
+    metric_setting = config.get("metric_setting", {})
+    return metric_setting.get("retrieval_match_threshold", 0.6)
+
+
+def calculate_doc_hit(doc_content: str, golden_answers, config):
+    normalized_doc = normalize_answer(doc_content)
+    if not normalized_doc:
+        return False, 0.0
+
+    doc_tokens = tokenize_text(doc_content)
+    match_threshold = get_retrieval_match_threshold(config)
+    best_score = 0.0
+
+    for answer in ensure_answer_list(golden_answers):
+        normalized_answer = normalize_answer(answer)
+        if not normalized_answer:
+            continue
+
+        if normalized_answer in normalized_doc:
+            return True, 1.0
+
+        answer_tokens = tokenize_text(answer)
+        overlap_ratio = token_overlap_ratio(answer_tokens, doc_tokens)
+        best_score = max(best_score, overlap_ratio)
+
+        if overlap_ratio >= match_threshold:
+            return True, overlap_ratio
+
+    return False, best_score
+
+
+def build_doc_hit_list(doc_list, golden_answers, topk, config):
+    hit_list = []
+    score_list = []
+    doc_contents = [doc["contents"] for doc in doc_list[:topk]]
+    for doc in doc_contents:
+        hit, score = calculate_doc_hit(doc, golden_answers, config)
+        hit_list.append(hit)
+        score_list.append(score)
+
+    return hit_list, score_list
 
 
 class BaseMetric:
@@ -205,12 +294,7 @@ class Retrieval_Recall(BaseMetric):
             if len(doc_list) < self.topk:
                 warnings.warn(f"Length of retrieved docs is smaller than topk ({self.topk})")
 
-            doc_contents = [doc["contents"] for doc in doc_list[: self.topk]]
-            hit_list = []
-            for doc in doc_contents:
-                normalized_doc = normalize_answer(doc)
-                hit = any(normalize_answer(answer) in normalized_doc for answer in golden_answers)
-                hit_list.append(hit)
+            hit_list, _ = build_doc_hit_list(doc_list, golden_answers, self.topk, self.config)
 
             recall_score_list.append(1.0 if any(hit_list) else 0.0)
 
@@ -225,7 +309,8 @@ class Retrieval_Precision(BaseMetric):
 
     def __init__(self, config):
         super().__init__(config)
-        self.topk = config["metric_setting"]["retrieval_recall_topk"]
+        metric_setting = config["metric_setting"]
+        self.topk = metric_setting.get("retrieval_precision_topk", metric_setting["retrieval_recall_topk"])
 
     def calculate_metric(self, data):
         precision_score_list = []
@@ -234,12 +319,7 @@ class Retrieval_Precision(BaseMetric):
             if len(doc_list) < self.topk:
                 warnings.warn(f"Length of retrieved docs is smaller than topk ({self.topk})")
 
-            doc_contents = [doc["contents"] for doc in doc_list[: self.topk]]
-            hit_list = []
-            for doc in doc_contents:
-                normalized_doc = normalize_answer(doc)
-                hit = any(normalize_answer(answer) in normalized_doc for answer in golden_answers)
-                hit_list.append(hit)
+            hit_list, _ = build_doc_hit_list(doc_list, golden_answers, self.topk, self.config)
 
             if not hit_list:
                 precision_score_list.append(0.0)
@@ -250,6 +330,73 @@ class Retrieval_Precision(BaseMetric):
             return {f"retrieval_precision_top{self.topk}": 0.0}, []
         precision_score = sum(precision_score_list) / len(precision_score_list)
         return {f"retrieval_precision_top{self.topk}": precision_score}, precision_score_list
+
+
+class RetrievalHitRate(BaseMetric):
+    metric_name = "retrieval_hit"
+    default_topk = 1
+
+    def __init__(self, config):
+        super().__init__(config)
+        metric_setting = config.get("metric_setting", {})
+        self.topk = metric_setting.get(f"hit_topk_{self.default_topk}", self.default_topk)
+
+    def calculate_metric(self, data):
+        hit_score_list = []
+        for doc_list, golden_answers in zip(data.retrieval_result, data.golden_answers):
+            if len(doc_list) < self.topk:
+                warnings.warn(f"Length of retrieved docs is smaller than topk ({self.topk})")
+
+            hit_list, _ = build_doc_hit_list(doc_list, golden_answers, self.topk, self.config)
+            hit_score_list.append(1.0 if any(hit_list) else 0.0)
+
+        if not hit_score_list:
+            return {f"hit@{self.topk}": 0.0}, []
+        score = sum(hit_score_list) / len(hit_score_list)
+        return {f"hit@{self.topk}": score}, hit_score_list
+
+
+class HitAt1(RetrievalHitRate):
+    metric_name = "hit@1"
+    default_topk = 1
+
+
+class HitAt3(RetrievalHitRate):
+    metric_name = "hit@3"
+    default_topk = 3
+
+
+class HitAt5(RetrievalHitRate):
+    metric_name = "hit@5"
+    default_topk = 5
+
+
+class MRR(BaseMetric):
+    metric_name = "mrr"
+
+    def __init__(self, config):
+        super().__init__(config)
+        metric_setting = config.get("metric_setting", {})
+        self.topk = metric_setting.get("mrr_topk", config.get("retrieval_topk", 1))
+
+    def calculate_metric(self, data):
+        reciprocal_rank_list = []
+        for doc_list, golden_answers in zip(data.retrieval_result, data.golden_answers):
+            if len(doc_list) < self.topk:
+                warnings.warn(f"Length of retrieved docs is smaller than topk ({self.topk})")
+
+            hit_list, _ = build_doc_hit_list(doc_list, golden_answers, self.topk, self.config)
+            reciprocal_rank = 0.0
+            for rank, hit in enumerate(hit_list, start=1):
+                if hit:
+                    reciprocal_rank = 1.0 / rank
+                    break
+            reciprocal_rank_list.append(reciprocal_rank)
+
+        if not reciprocal_rank_list:
+            return {"mrr": 0.0}, []
+        score = sum(reciprocal_rank_list) / len(reciprocal_rank_list)
+        return {"mrr": score}, reciprocal_rank_list
 
 
 class Rouge_Score(BaseMetric):

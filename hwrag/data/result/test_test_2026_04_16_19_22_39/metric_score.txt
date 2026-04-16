@@ -1,0 +1,8 @@
+em: 0.1
+sub_em: 0.1
+f1: 0.5832238426245315
+precision: 0.579834616613435
+recall: 0.6816897757064029
+rouge-l: 0.0999999995
+retrieval_recall_top3: 0.1
+retrieval_precision_top3: 0.03333333333333333
