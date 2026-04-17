@@ -1,4 +1,5 @@
 import asyncio
+import os
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql import text
@@ -14,7 +15,7 @@ database_name = 'test'
 from urllib.parse import quote
 
 # 使用 quote 函数对密码进行编码
-password = "snowball950123"
+password = os.getenv("TEST_MYSQL_PASSWORD", "<your_mysql_password>")
 
 # 现在使用编码后的密码构建连接字符串
 SQLALCHEMY_DATABASE_URI = f"mysql+asyncmy://{username}:{password}@{hostname}/{database_name}?charset=utf8mb4"

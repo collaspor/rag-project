@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 
 from typing import List
 from typing import Optional
+import os
 from sqlalchemy import ForeignKey
 from sqlalchemy import String
 from sqlalchemy.orm import DeclarativeBase
@@ -50,7 +51,7 @@ database_name = 'test'
 
 from urllib.parse import quote
 
-password = "snowball950123"
+password = os.getenv("TEST_MYSQL_PASSWORD", "<your_mysql_password>")
 
 SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://{username}:{password}@{hostname}/{database_name}?charset=utf8mb4"
 

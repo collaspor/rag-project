@@ -1,10 +1,10 @@
 import os
 
 # 更新以下字段为你本地数据库的实际用户名、密码和数据库名
-username = 'gpt'
-hostname = 'localhost'
-database_name = 'hw_chat'
-password = "gpt"
+username = os.getenv("HW_CHAT_DB_USER", "gpt")
+hostname = os.getenv("HW_CHAT_DB_HOST", "localhost")
+database_name = os.getenv("HW_CHAT_DB_NAME", "hw_chat")
+password = os.getenv("HW_CHAT_DB_PASSWORD", "<your_db_password>")
 
 SQLALCHEMY_DATABASE_URI = f"mysql+asyncmy://{username}:{password}@{hostname}/{database_name}?charset=utf8mb4"
 

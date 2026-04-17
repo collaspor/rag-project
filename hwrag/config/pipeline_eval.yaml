@@ -39,7 +39,7 @@ random_sample: false
 retrieval_method: bge-large-zh-v1
 
 # 初始召回 top-k 数量。
-retrieval_topk: 3
+retrieval_topk: 5
 
 # 是否将本次召回结果写入缓存。
 save_retrieval_cache: false
@@ -57,7 +57,7 @@ rerank_model_path: /root/autodl-tmp/data/Xorbits/bge-reranker-large
 rerank_model_name: bge-reranker-large
 
 # 重排序后保留的 top-k 数量。
-rerank_topk: 2
+rerank_topk: 3
 
 # reranker 单次输入最大长度。
 rerank_max_length: 512

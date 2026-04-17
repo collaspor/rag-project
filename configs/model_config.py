@@ -1,4 +1,6 @@
 
+import os
+
 MODEL_ROOT_PATH = ""
 
 TEMPERATURE = 0.8
@@ -48,7 +50,7 @@ ONLINE_LLM_MODEL = {
 
     # 智谱清言的在线API服务
     "zhipu-api": {
-        "api_key": "2c397e8089af28761792c52d334e92c3.fZQHXOprjyAR3Xs7",
+        "api_key": os.getenv("ZHIPUAI_API_KEY", "<your_zhipu_api_key>"),
         "version": "glm-4",
         "provider": "ChatGLMWorker",
     },
@@ -57,8 +59,8 @@ ONLINE_LLM_MODEL = {
     "openai-api": {
         "model_name": "gpt-4",
         "api_base_url": "https://api.openai.com/v1",
-        "api_key": "",
-        "openai_proxy": "",
+        "api_key": os.getenv("OPENAI_API_KEY", ""),
+        "openai_proxy": os.getenv("OPENAI_PROXY", ""),
     },
 
     # 可扩展其他的模型在线模型

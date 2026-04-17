@@ -1,0 +1,18 @@
+{"id":"62","question":"截至2017年11月，世界前500台超级计算机的操作系统使用情况如何？","golden_answers":["全部使用Linux。"]}
+{"id":"63","question":"从技术角度看，Linux内核与完整的Linux操作系统有何区别？","golden_answers":["Linux只是一个符合POSIX标准的内核，提供API；完整的操作系统叫作Linux操作系统或GNU/Linux，包含了许多GNU计划的系统组件。"]}
+{"id":"64","question":"林纳斯·托瓦兹在开发Linux内核初期使用了什么编程语言和硬件架构？","golden_answers":["使用了英特尔80386汇编语言。"]}
+{"id":"65","question":"在Linux内核开发早期，为什么MINIX社区和GNU项目对它的发展起到了推动作用？","golden_answers":["因为GNU项目的内核Hurd尚不完整，而BSD操作系统面临法律阻碍，Linux因此迅速获得了关注。"]}
+{"id":"66","question":"Linux内核的哪个版本是第一个可以由运行相同内核版本的计算机自行编译的？","golden_answers":["0.11版本。"]}
+{"id":"67","question":"Linux内核在哪个版本首次能够运行X Window系统？","golden_answers":["0.95版本。"]}
+{"id":"68","question":"Linux内核从2.6.x版本号直接跳跃到3.0的主要原因是什么？","golden_answers":["为了标志着内核诞生20周年，而非因为巨大的技术变化。"]}
+{"id":"69","question":"林纳斯·托瓦兹与安德鲁·斯图尔特·塔能鲍姆著名的“内核论战”主要争论了什么话题？","golden_answers":["关于操作系统架构的选择，即宏内核与微内核的优劣。"]}
+{"id":"70","question":"与标准单体内核相比，Linux内核的设备驱动程序有什么独特之处？","golden_answers":["可以轻易配置为内核模块，并在系统运行期间直接装载或卸载。"]}
+{"id":"71","question":"Linux内核主要是用什么语言编写的？","golden_answers":["主要用C语言（GCC版），还有少量汇编语言。"]}
+{"id":"72","question":"Intel C++编译器成功编译Linux内核后，带来了怎样的性能提升？","golden_answers":["平均8-9%的性能增长。"]}
+{"id":"73","question":"“LLVMLinux”计划的主要目标是什么？","golden_answers":["致力于让Linux内核可以用Clang编译器进行编译，以获得更快的编译速度。"]}
+{"id":"74","question":"什么是Linux内核的二进制可移植性？","golden_answers":["指保证程序在给定硬件平台编译通过后，可以在符合同样标准的任何其他硬件平台上以编译后的形式运行。"]}
+{"id":"75","question":"Linux内核开发者对于维护“内核内ABI”持什么态度？","golden_answers":["他们选择不维护稳定的内核内ABI。"]}
+{"id":"76","question":"Linux内核默认使用的调度机制叫什么名字？","golden_answers":["完全公平调度器。"]}
+{"id":"77","question":"实时Linux内核补丁对内核的抢先机制有何改进？","golden_answers":["支持对关键段落、中断处理器和“中断禁用”代码序列的完全抢先。"]}
+{"id":"78","question":"谁移除了Linux内核中用于锁定整个内核的同步机制？","golden_answers":["Arnd Bergmann。"]}
+{"id":"79","question":"尽管林纳斯·托瓦兹最初并未打算让Linux具备高可移植性，但现在的Linux内核已经被移植到了哪些游戏机上？","golden_answers":["索尼的PS2、PS3以及微软的Xbox。"]}
