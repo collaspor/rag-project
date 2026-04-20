@@ -57,8 +57,6 @@ hwrag/data/result/
 hwrag/data/indexes/
 
 # 本地数据与私有知识库
-/data/
-/knowledge_base/
 
 # 模型与向量索引
 *.faiss
