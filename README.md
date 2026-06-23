@@ -11,8 +11,8 @@ HW-Chat 是一款基于 **LangChain** 和 **FastChat** 构建的高性能检索�
 - **灵活的模型调度**：集成 **FastChat** 框架，支持本地 GPU 模型（如 ChatGLM3-6b）与在线 API（如 智谱 AI）的统一调度。
 - **深度中文优化**：内置针对中文语境优化的递归字符切分器与标题增强技术。
 - **完整的 RAG 评估体系**：独立的 `hwrag` 模块，支持对检索准确率、回答质量等指标进行自动化跑分。
-- **会话持久化**：基于 SQLAlchemy 实现用户信息、对话历史与知识库元数据的持久化存储。
-- **前后端一体化**：后端基于 **FastAPI**，并自动托管 Vue.js 构建的前端界面。
+- **会话持久化**：基于 SQLAlchemy（异步引擎）实现用户信息、对话历史与知识库元数据的持久化存储。
+- **前后端一体化**：后端基于 **FastAPI**，同时托管旧版 Vue 编译产物（`/`）与新版免构建管理前端（`/app/`）。
 
 ---
 
@@ -38,7 +38,8 @@ hw-chat/
 ├── text_splitter/      # 针对中文优化的文本切分策略
 ├── playground/         # 技术实验室与原型验证脚本
 ├── scripts/            # 数据预处理与运维工具
-├── static/             # 前端编译产物静态文件夹
+├── static/             # 旧版 Vue 前端编译产物（dist，无源码）
+├── frontend/           # 新版自包含管理前端（免构建单页 HTML，托管于 /app）
 ├── startup.py          # 项目一键启动入口
 └── requirements.txt    # 项目依赖列表
 ```
@@ -64,14 +65,33 @@ pip install -r requirements.txt
 python startup.py -m
 ```
 
+### 4. 访问前端
+- **管理前端（推荐）**：浏览器打开 `http://127.0.0.1:6006/app/`
+  - 支持通用对话 / 知识库问答（流式）、会话管理、知识库文件的列表 / 上传 / 删除
+  - 首次使用请在顶部填写 **数据库中已存在的用户 ID**；知识库相关功能需填写知识库名称
+- **旧版 Vue 前端**：`http://127.0.0.1:6006/`
+
 ---
 
 ## 接口说明 (API Usage)
 
-### 知识库问答接口
-**Endpoint**: `POST /api/chat/knowledge_base_chat`
+### 通用对话接口
+**Endpoint**: `POST /api/chat`（SSE 流式，返回 `{"text": ..., "message_id": ...}`）
 
-**请求示例**:
+```json
+{
+    "query": "你好，请介绍一下机器学习",
+    "user_id": "admin",
+    "conversation_id": "",
+    "stream": true,
+    "model_name": "chatglm3-6b",
+    "prompt_name": "default"
+}
+```
+
+### 知识库问答接口
+**Endpoint**: `POST /api/chat/knowledge_base_chat`（SSE 流式，返回 `{"answer": ...}` 与 `{"docs": [...]}`）
+
 ```json
 {
     "query": "什么是 GLM4 多角色对话？",
@@ -80,10 +100,30 @@ python startup.py -m
     "knowledge_base_name": "private",
     "top_k": 3,
     "score_threshold": 0.5,
-    "stream": false,
+    "stream": true,
     "model_name": "chatglm3-6b"
 }
 ```
+
+### 会话与消息接口
+- `POST /api/conversations`：新建会话，body `{"user_id","name","chat_type"}`
+- `GET /api/users/{user_id}/conversations`：获取用户会话列表
+- `GET /api/conversations/{conversation_id}/messages`：获取会话消息列表
+
+### 知识库管理接口
+> 均需传入 `user_id` 并经 `check_user` 校验（要求该用户存在）。
+
+- **列出文件**：`GET /api/knowledge_base/list_files?knowledge_base_name=samples&user_id=admin`
+- **上传并向量化**：`POST /api/knowledge_base/upload_docs`（`multipart/form-data`：`files`、`knowledge_base_name`、`user_id`、`to_vector_store` 等）
+- **删除文件**：`POST /api/knowledge_base/delete_docs`
+  ```json
+  {
+      "knowledge_base_name": "samples",
+      "user_id": "admin",
+      "file_names": ["test.txt"],
+      "delete_content": true
+  }
+  ```
 
 ---
 
