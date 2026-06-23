@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HW-Chat 控制台</title>
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a21;
+      --panel-2: #1e222b;
+      --border: #2a2f3a;
+      --text: #e6e8ec;
+      --muted: #8b919e;
+      --primary: #4f7cff;
+      --primary-hover: #6a90ff;
+      --danger: #ff5c5c;
+      --ok: #34c759;
+      --user-bubble: #2b3550;
+      --ai-bubble: #20242e;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+    /* 顶部配置栏 */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    header .brand {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--primary);
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+    header .field { display: flex; align-items: center; gap: 6px; }
+    header label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+    input, select, textarea {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 13px;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+    input.sm { width: 110px; }
+    input.xs { width: 64px; }
+    .seg {
+      display: inline-flex;
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .seg button {
+      background: transparent; border: none; color: var(--muted);
+      padding: 7px 14px; cursor: pointer; font-size: 13px;
+    }
+    .seg button.active { background: var(--primary); color: #fff; }
+
+    /* 主体 */
+    .main { flex: 1; display: flex; min-height: 0; }
+    aside {
+      width: 290px;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .aside-section { border-bottom: 1px solid var(--border); display:flex; flex-direction:column; min-height:0; }
+    .aside-head {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 12px 14px; font-size: 13px; font-weight: 600; color: var(--text);
+    }
+    .aside-head .count { color: var(--muted); font-weight: 400; font-size: 12px; }
+    .btn {
+      background: var(--primary); color:#fff; border:none; border-radius:8px;
+      padding: 7px 12px; cursor:pointer; font-size:13px; transition: background .15s;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn:disabled { opacity:.5; cursor:not-allowed; }
+    .btn.ghost { background: transparent; border:1px solid var(--border); color: var(--muted); }
+    .btn.ghost:hover { color: var(--text); border-color: var(--primary); }
+    .btn.danger { background: transparent; border:1px solid var(--border); color: var(--danger); padding:4px 8px; font-size:12px; }
+    .btn.danger:hover { background: rgba(255,92,92,.1); }
+    .btn.sm { padding: 5px 10px; font-size:12px; }
+
+    .list { overflow-y: auto; flex:1; padding: 4px 8px 10px; }
+    .conv-item {
+      padding: 10px 12px; border-radius: 8px; cursor: pointer; margin-bottom: 4px;
+      font-size: 13px; color: var(--text); border:1px solid transparent;
+    }
+    .conv-item:hover { background: var(--panel-2); }
+    .conv-item.active { background: var(--panel-2); border-color: var(--primary); }
+    .conv-item .meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    .file-item {
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 8px 10px; border-radius:8px; font-size:12.5px; margin-bottom:3px;
+    }
+    .file-item:hover { background: var(--panel-2); }
+    .file-item .name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; margin-right:8px; }
+
+    /* 对话区 */
+    .chat { flex:1; display:flex; flex-direction:column; min-width:0; background: var(--bg); }
+    .messages { flex:1; overflow-y:auto; padding: 24px 18px; }
+    .msg-row { display:flex; margin-bottom: 18px; }
+    .msg-row.user { justify-content: flex-end; }
+    .bubble {
+      max-width: 760px; padding: 12px 16px; border-radius: 14px; font-size: 14px;
+      line-height: 1.6; white-space: pre-wrap; word-break: break-word;
+    }
+    .msg-row.user .bubble { background: var(--user-bubble); border-bottom-right-radius: 4px; }
+    .msg-row.ai .bubble { background: var(--ai-bubble); border:1px solid var(--border); border-bottom-left-radius: 4px; }
+    .role-tag { font-size:11px; color:var(--muted); margin-bottom:6px; }
+    .docs {
+      margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border);
+      font-size: 12px; color: var(--muted);
+    }
+    .docs a { color: var(--primary); text-decoration: none; }
+    .docs .doc { margin-bottom: 6px; }
+    .empty-tip { color: var(--muted); text-align:center; margin-top: 80px; font-size: 14px; }
+
+    /* 输入区 */
+    .composer { border-top:1px solid var(--border); padding: 12px 18px; background: var(--panel); }
+    .composer .row { display:flex; gap:10px; align-items:flex-end; }
+    .composer textarea { flex:1; resize:none; height: 52px; max-height: 160px; line-height:1.5; }
+    .composer .hint { font-size:11px; color:var(--muted); margin-top:6px; }
+
+    /* Toast */
+    #toast {
+      position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+      background: var(--panel-2); border:1px solid var(--border); color: var(--text);
+      padding: 10px 18px; border-radius: 10px; font-size: 13px; z-index: 100;
+      opacity: 0; pointer-events:none; transition: opacity .25s; max-width: 80vw;
+    }
+    #toast.show { opacity: 1; }
+    #toast.err { border-color: var(--danger); }
+    #toast.ok { border-color: var(--ok); }
+
+    .spinner {
+      display:inline-block; width:12px; height:12px; border:2px solid var(--muted);
+      border-top-color: transparent; border-radius:50%; animation: spin .8s linear infinite;
+      vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .typing::after { content:'▋'; animation: blink 1s steps(1) infinite; color: var(--primary); }
+    @keyframes blink { 50% { opacity:0; } }
+    .hidden { display:none !important; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="brand">HW-Chat</span>
+    <div class="field">
+      <label>API</label>
+      <input id="apiBase" class="sm" placeholder="同源留空" title="后端地址，留空表示与页面同源" />
+    </div>
+    <div class="field">
+      <label>用户ID</label>
+      <input id="userId" class="sm" placeholder="如 admin" />
+    </div>
+    <div class="field">
+      <label>模型</label>
+      <select id="modelName">
+        <option value="chatglm3-6b">chatglm3-6b</option>
+        <option value="zhipu-api">zhipu-api</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>模式</label>
+      <div class="seg" id="modeSeg">
+        <button data-mode="llm" class="active">通用对话</button>
+        <button data-mode="kb">知识库问答</button>
+      </div>
+    </div>
+    <div class="field kb-only">
+      <label>知识库</label>
+      <input id="kbName" class="sm" placeholder="如 samples" />
+    </div>
+    <div class="field kb-only">
+      <label>top_k</label>
+      <input id="topK" class="xs" type="number" value="3" min="1" />
+    </div>
+    <div class="field kb-only">
+      <label>阈值</label>
+      <input id="scoreTh" class="xs" type="number" value="1.0" step="0.1" min="0" max="2" />
+    </div>
+  </header>
+
+  <div class="main">
+    <aside>
+      <!-- 会话列表 -->
+      <div class="aside-section" style="flex:1.4">
+        <div class="aside-head">
+          <span>会话</span>
+          <button class="btn sm" id="newConvBtn">+ 新建</button>
+        </div>
+        <div class="list" id="convList"></div>
+      </div>
+      <!-- 知识库文件管理 -->
+      <div class="aside-section kb-only" style="flex:1">
+        <div class="aside-head">
+          <span>知识库文件 <span class="count" id="fileCount"></span></span>
+          <div style="display:flex;gap:6px;">
+            <button class="btn ghost sm" id="refreshFilesBtn">刷新</button>
+            <button class="btn sm" id="uploadBtn">上传</button>
+          </div>
+        </div>
+        <div class="list" id="fileList"></div>
+        <input type="file" id="fileInput" class="hidden" multiple />
+      </div>
+    </aside>
+
+    <div class="chat">
+      <div class="messages" id="messages">
+        <div class="empty-tip" id="emptyTip">输入问题开始对话。通用对话需有效用户ID；知识库问答请先填写知识库名称。</div>
+      </div>
+      <div class="composer">
+        <div class="row">
+          <textarea id="input" placeholder="输入消息，Enter 发送，Shift+Enter 换行"></textarea>
+          <button class="btn" id="sendBtn">发送</button>
+          <button class="btn ghost" id="stopBtn" style="display:none;">停止</button>
+        </div>
+        <div class="hint" id="hint"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+  (function () {
+    "use strict";
+
+    // ---------- 状态 ----------
+    const state = {
+      mode: "llm",            // llm | kb
+      conversationId: "",
+      conversations: [],
+      streaming: false,
+      abort: null,
+    };
+
+    // ---------- DOM ----------
+    const $ = (id) => document.getElementById(id);
+    const els = {
+      apiBase: $("apiBase"), userId: $("userId"), modelName: $("modelName"),
+      modeSeg: $("modeSeg"), kbName: $("kbName"), topK: $("topK"), scoreTh: $("scoreTh"),
+      convList: $("convList"), newConvBtn: $("newConvBtn"),
+      fileList: $("fileList"), fileCount: $("fileCount"),
+      refreshFilesBtn: $("refreshFilesBtn"), uploadBtn: $("uploadBtn"), fileInput: $("fileInput"),
+      messages: $("messages"), emptyTip: $("emptyTip"),
+      input: $("input"), sendBtn: $("sendBtn"), stopBtn: $("stopBtn"), hint: $("hint"),
+    };
+
+    // ---------- 本地存储（记住配置）----------
+    const LS = "hwchat_cfg";
+    function saveCfg() {
+      localStorage.setItem(LS, JSON.stringify({
+        apiBase: els.apiBase.value, userId: els.userId.value,
+        modelName: els.modelName.value, kbName: els.kbName.value,
+        topK: els.topK.value, scoreTh: els.scoreTh.value, mode: state.mode,
+      }));
+    }
+    function loadCfg() {
+      try {
+        const c = JSON.parse(localStorage.getItem(LS) || "{}");
+        if (c.apiBase) els.apiBase.value = c.apiBase;
+        if (c.userId) els.userId.value = c.userId;
+        if (c.modelName) els.modelName.value = c.modelName;
+        if (c.kbName) els.kbName.value = c.kbName;
+        if (c.topK) els.topK.value = c.topK;
+        if (c.scoreTh) els.scoreTh.value = c.scoreTh;
+        if (c.mode) setMode(c.mode);
+      } catch (e) {}
+    }
+
+    // ---------- 工具 ----------
+    function apiUrl(path) {
+      const base = els.apiBase.value.trim().replace(/\/$/, "");
+      return base + path;
+    }
+    function toast(msg, type) {
+      const t = $("toast");
+      t.textContent = msg;
+      t.className = "show " + (type || "");
+      clearTimeout(t._t);
+      t._t = setTimeout(() => { t.className = ""; }, 3000);
+    }
+    function requireUser() {
+      const uid = els.userId.value.trim();
+      if (!uid) { toast("请先填写用户ID", "err"); return null; }
+      return uid;
+    }
+    function scrollBottom() { els.messages.scrollTop = els.messages.scrollHeight; }
+
+    // ---------- 消息渲染 ----------
+    function clearMessages() {
+      els.messages.innerHTML = "";
+      els.messages.appendChild(els.emptyTip);
+      els.emptyTip.style.display = "block";
+    }
+    function addBubble(role, text) {
+      els.emptyTip.style.display = "none";
+      const row = document.createElement("div");
+      row.className = "msg-row " + role;
+      const b = document.createElement("div");
+      b.className = "bubble";
+      const tag = document.createElement("div");
+      tag.className = "role-tag";
+      tag.textContent = role === "user" ? "我" : "助手";
+      const body = document.createElement("div");
+      body.className = "body";
+      body.textContent = text || "";
+      b.appendChild(tag); b.appendChild(body);
+      row.appendChild(b);
+      els.messages.appendChild(row);
+      scrollBottom();
+      return { row, bubble: b, body };
+    }
+    function renderDocs(bubble, docs) {
+      if (!docs || !docs.length) return;
+      const box = document.createElement("div");
+      box.className = "docs";
+      box.innerHTML = "<b>来源文档</b>";
+      docs.forEach((d) => {
+        const div = document.createElement("div");
+        div.className = "doc";
+        div.innerHTML = mdLinkToHtml(d);
+        box.appendChild(div);
+      });
+      bubble.appendChild(box);
+      scrollBottom();
+    }
+    // 后端 docs 形如 "出处 [1] [file](url) \n\n内容"，做最简渲染
+    function mdLinkToHtml(s) {
+      const esc = (x) => x.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return esc(s)
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+        .replace(/\n/g, "<br/>");
+    }
+
+    // ---------- SSE 流式 POST ----------
+    async function streamPost(path, body, onObj) {
+      const ctrl = new AbortController();
+      state.abort = ctrl;
+      const resp = await fetch(apiUrl(path), {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+        signal: ctrl.signal,
+      });
+      if (!resp.ok) {
+        let detail = resp.status + "";
+        try { const j = await resp.json(); detail = j.detail || j.msg || detail; } catch (e) {}
+        throw new Error("请求失败: " + detail);
+      }
+      const reader = resp.body.getReader();
+      const decoder = new TextDecoder("utf-8");
+      let buf = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += decoder.decode(value, { stream: true });
+        let idx;
+        while ((idx = buf.indexOf("\n")) >= 0) {
+          let line = buf.slice(0, idx);
+          buf = buf.slice(idx + 1);
+          line = line.replace(/\r$/, "").trim();
+          if (!line) continue;
+          if (line.startsWith("data:")) line = line.slice(5).trim();
+          if (!line) continue;
+          try { onObj(JSON.parse(line)); } catch (e) { /* 忽略非 JSON 行 */ }
+        }
+      }
+    }
+
+    // ---------- 发送 ----------
+    async function send() {
+      if (state.streaming) return;
+      const uid = requireUser();
+      if (!uid) return;
+      const query = els.input.value.trim();
+      if (!query) return;
+
+      if (state.mode === "kb" && !els.kbName.value.trim()) {
+        toast("知识库问答需填写知识库名称", "err");
+        return;
+      }
+
+      addBubble("user", query);
+      els.input.value = "";
+      const ai = addBubble("ai", "");
+      ai.body.classList.add("typing");
+
+      setStreaming(true);
+      let answer = "";
+      try {
+        if (state.mode === "llm") {
+          await streamPost("/api/chat", {
+            query, user_id: uid,
+            conversation_id: state.conversationId || "",
+            conversation_name: "",
+            history_len: -1, history: [],
+            stream: true,
+            model_name: els.modelName.value,
+            prompt_name: "default",
+          }, (obj) => {
+            if (obj.text != null) { answer += obj.text; ai.body.textContent = answer; scrollBottom(); }
+            if (obj.message_id) ai.row.dataset.messageId = obj.message_id;
+          });
+        } else {
+          let docs = null;
+          await streamPost("/api/chat/knowledge_base_chat", {
+            query, user_id: uid,
+            conversation_id: state.conversationId || "",
+            conversation_name: "",
+            knowledge_base_name: els.kbName.value.trim(),
+            top_k: parseInt(els.topK.value) || 3,
+            score_threshold: parseFloat(els.scoreTh.value) || 1.0,
+            history: [], history_len: -1,
+            stream: true,
+            model_name: els.modelName.value,
+            prompt_name: "default",
+          }, (obj) => {
+            if (obj.answer != null) { answer += obj.answer; ai.body.textContent = answer; scrollBottom(); }
+            if (obj.docs) docs = obj.docs;
+          });
+          if (docs) renderDocs(ai.bubble, docs);
+        }
+      } catch (e) {
+        if (e.name === "AbortError") {
+          ai.body.textContent = answer + "\n[已停止]";
+        } else {
+          ai.body.textContent = "⚠️ " + e.message;
+          toast(e.message, "err");
+        }
+      } finally {
+        ai.body.classList.remove("typing");
+        setStreaming(false);
+      }
+    }
+
+    function setStreaming(on) {
+      state.streaming = on;
+      els.sendBtn.style.display = on ? "none" : "";
+      els.stopBtn.style.display = on ? "" : "none";
+    }
+
+    // ---------- 会话 ----------
+    async function loadConversations() {
+      const uid = els.userId.value.trim();
+      if (!uid) { els.convList.innerHTML = ""; return; }
+      try {
+        const resp = await fetch(apiUrl("/api/users/" + encodeURIComponent(uid) + "/conversations"));
+        if (!resp.ok) throw new Error("加载会话失败 " + resp.status);
+        const data = await resp.json();
+        state.conversations = data || [];
+        renderConversations();
+      } catch (e) { toast(e.message, "err"); }
+    }
+    function renderConversations() {
+      els.convList.innerHTML = "";
+      state.conversations.forEach((c) => {
+        const div = document.createElement("div");
+        div.className = "conv-item" + (c.id === state.conversationId ? " active" : "");
+        div.innerHTML = '<div>' + escapeHtml(c.name || "未命名会话") + '</div>' +
+          '<div class="meta">' + (c.chat_type || "") + " · " + fmtTime(c.create_time) + '</div>';
+        div.onclick = () => selectConversation(c.id);
+        els.convList.appendChild(div);
+      });
+    }
+    async function selectConversation(id) {
+      state.conversationId = id;
+      renderConversations();
+      clearMessages();
+      try {
+        const resp = await fetch(apiUrl("/api/conversations/" + encodeURIComponent(id) + "/messages"));
+        if (!resp.ok) throw new Error("加载消息失败 " + resp.status);
+        const msgs = await resp.json();
+        (msgs || []).forEach((m) => {
+          if (m.query) addBubble("user", m.query);
+          if (m.response) addBubble("ai", m.response);
+        });
+        if (!msgs || !msgs.length) els.emptyTip.style.display = "block";
+      } catch (e) { toast(e.message, "err"); }
+    }
+    async function newConversation() {
+      const uid = requireUser();
+      if (!uid) return;
+      const name = prompt("请输入会话名称：", "新会话");
+      if (name === null) return;
+      try {
+        const resp = await fetch(apiUrl("/api/conversations"), {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: uid, name: name || "新会话", chat_type: state.mode === "kb" ? "knowledge_base_chat" : "llm_chat" }),
+        });
+        if (!resp.ok) { const j = await resp.json().catch(()=>({})); throw new Error(j.detail || "新建会话失败"); }
+        const j = await resp.json();
+        toast("会话已创建", "ok");
+        await loadConversations();
+        if (j.id) selectConversation(j.id);
+      } catch (e) { toast(e.message, "err"); }
+    }
+
+    // ---------- 知识库文件 ----------
+    async function loadFiles() {
+      const uid = els.userId.value.trim();
+      const kb = els.kbName.value.trim();
+      if (!uid || !kb) { els.fileList.innerHTML = ""; els.fileCount.textContent = ""; return; }
+      try {
+        const url = apiUrl("/api/knowledge_base/list_files?knowledge_base_name=" +
+          encodeURIComponent(kb) + "&user_id=" + encodeURIComponent(uid));
+        const resp = await fetch(url);
+        if (!resp.ok) { const j = await resp.json().catch(()=>({})); throw new Error(j.detail || ("列表失败 " + resp.status)); }
+        const j = await resp.json();
+        const files = (j && j.data) || [];
+        renderFiles(files);
+      } catch (e) { toast(e.message, "err"); }
+    }
+    function renderFiles(files) {
+      els.fileList.innerHTML = "";
+      els.fileCount.textContent = "(" + files.length + ")";
+      files.forEach((name) => {
+        const div = document.createElement("div");
+        div.className = "file-item";
+        div.innerHTML = '<span class="name" title="' + escapeHtml(name) + '">' + escapeHtml(name) + '</span>';
+        const del = document.createElement("button");
+        del.className = "btn danger";
+        del.textContent = "删除";
+        del.onclick = () => deleteFile(name);
+        div.appendChild(del);
+        els.fileList.appendChild(div);
+      });
+    }
+    async function uploadFiles(fileList) {
+      const uid = requireUser();
+      if (!uid) return;
+      const kb = els.kbName.value.trim();
+      if (!kb) { toast("请先填写知识库名称", "err"); return; }
+      const fd = new FormData();
+      for (const f of fileList) fd.append("files", f);
+      fd.append("knowledge_base_name", kb);
+      fd.append("user_id", uid);
+      fd.append("to_vector_store", "true");
+      toast("上传中…");
+      try {
+        const resp = await fetch(apiUrl("/api/knowledge_base/upload_docs"), { method: "POST", body: fd });
+        if (!resp.ok) { const j = await resp.json().catch(()=>({})); throw new Error(j.detail || ("上传失败 " + resp.status)); }
+        const j = await resp.json();
+        const failed = (j.data && j.data.failed_files) || {};
+        const failCount = Object.keys(failed).length;
+        toast(failCount ? ("部分失败: " + Object.keys(failed).join(", ")) : "上传并向量化完成", failCount ? "err" : "ok");
+        loadFiles();
+      } catch (e) { toast(e.message, "err"); }
+    }
+    async function deleteFile(name) {
+      const uid = requireUser();
+      if (!uid) return;
+      const kb = els.kbName.value.trim();
+      if (!confirm("确认删除文件「" + name + "」及其向量？")) return;
+      try {
+        const resp = await fetch(apiUrl("/api/knowledge_base/delete_docs"), {
+          method: "POST", headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ knowledge_base_name: kb, user_id: uid, file_names: [name], delete_content: true }),
+        });
+        if (!resp.ok) { const j = await resp.json().catch(()=>({})); throw new Error(j.detail || ("删除失败 " + resp.status)); }
+        toast("已删除", "ok");
+        loadFiles();
+      } catch (e) { toast(e.message, "err"); }
+    }
+
+    // ---------- 杂项 ----------
+    function escapeHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+    function fmtTime(t) {
+      if (!t) return "";
+      try { return new Date(t).toLocaleString("zh-CN", { hour12: false }); } catch (e) { return t; }
+    }
+    function setMode(mode) {
+      state.mode = mode;
+      [...els.modeSeg.querySelectorAll("button")].forEach((b) =>
+        b.classList.toggle("active", b.dataset.mode === mode));
+      document.querySelectorAll(".kb-only").forEach((e) =>
+        e.classList.toggle("hidden", mode !== "kb"));
+      updateHint();
+      if (mode === "kb") loadFiles();
+    }
+    function updateHint() {
+      els.hint.textContent = state.mode === "kb"
+        ? "知识库问答：基于「" + (els.kbName.value.trim() || "?") + "」检索后作答，并展示来源文档。"
+        : "通用对话：直接与大模型交互。";
+    }
+
+    // ---------- 事件绑定 ----------
+    els.modeSeg.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (btn) { setMode(btn.dataset.mode); saveCfg(); }
+    });
+    els.sendBtn.onclick = send;
+    els.stopBtn.onclick = () => { if (state.abort) state.abort.abort(); };
+    els.input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+    });
+    els.newConvBtn.onclick = newConversation;
+    els.refreshFilesBtn.onclick = loadFiles;
+    els.uploadBtn.onclick = () => els.fileInput.click();
+    els.fileInput.addEventListener("change", (e) => {
+      if (e.target.files.length) uploadFiles(e.target.files);
+      e.target.value = "";
+    });
+    els.userId.addEventListener("change", () => { saveCfg(); loadConversations(); if (state.mode === "kb") loadFiles(); });
+    els.kbName.addEventListener("change", () => { saveCfg(); updateHint(); if (state.mode === "kb") loadFiles(); });
+    [els.apiBase, els.modelName, els.topK, els.scoreTh].forEach((el) =>
+      el.addEventListener("change", saveCfg));
+
+    // ---------- 初始化 ----------
+    loadCfg();
+    updateHint();
+    clearMessages();
+    if (els.userId.value.trim()) loadConversations();
+  })();
+  </script>
+</body>
+</html>

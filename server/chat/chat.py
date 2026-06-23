@@ -99,7 +99,11 @@ async def chat(query: str = Body(..., description="用户输入", examples=["你
 
 
         if history:  # 优先使用前端传入的历史消息
-            pass
+            history = [History.from_data(h) for h in history]
+            prompt_template = get_prompt_template("llm_chat", prompt_name)
+            input_msg = History(role="user", content=prompt_template).to_msg_template(False)
+            chat_prompt = ChatPromptTemplate.from_messages(
+                [i.to_msg_template() for i in history] + [input_msg])
         elif conversation_id and history_len > 0:  # 前端要求从数据库取历史消息
             # 使用memory 时必须 prompt 必须含有memory.memory_key 对应的变量
             prompt = get_prompt_template("llm_chat", "with_history")
@@ -109,10 +113,10 @@ async def chat(query: str = Body(..., description="用户输入", examples=["你
                                                 llm=model,
                                                 message_limit=history_len)
 
-        else:
-            pass
-
-
+        else:  # 无历史，单轮对话
+            prompt_template = get_prompt_template("llm_chat", prompt_name)
+            input_msg = History(role="user", content=prompt_template).to_msg_template(False)
+            chat_prompt = ChatPromptTemplate.from_messages([input_msg])
 
         chain = LLMChain(prompt=chat_prompt, llm=model, memory=memory)
 

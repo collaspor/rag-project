@@ -64,7 +64,7 @@ class KBService(ABC):
     def __repr__(self) -> str:
         return f"{self.kb_name} @ {self.embed_model}"
 
-    def save_vector_store(self):
+    async def save_vector_store(self):
         '''
         保存向量库:FAISS保存到磁盘，milvus保存到数据库。PGVector暂未支持
         '''
@@ -140,13 +140,13 @@ class KBService(ABC):
             status = False
         return status
 
-    def delete_doc(self, kb_file: KnowledgeFile, delete_content: bool = False, **kwargs):
+    async def delete_doc(self, kb_file: KnowledgeFile, delete_content: bool = False, **kwargs):
         """
         从知识库删除文件
         """
-    
-        self.do_delete_doc(kb_file, **kwargs)
-        status = delete_file_from_db(kb_file)
+
+        await self.do_delete_doc(kb_file, **kwargs)
+        status = await delete_file_from_db(kb_file)
         if delete_content and os.path.exists(kb_file.filepath):
             os.remove(kb_file.filepath)
         return status
@@ -159,21 +159,21 @@ class KBService(ABC):
         status = add_kb_to_db(self.kb_name, self.kb_info, self.vs_type(), self.embed_model)
         return status
 
-    def update_doc(self, kb_file: KnowledgeFile, docs: List[Document] = [], **kwargs):
+    async def update_doc(self, kb_file: KnowledgeFile, docs: List[Document] = [], **kwargs):
         """
         使用content中的文件更新向量库
         如果指定了docs，则使用自定义docs，并将数据库对应条目标为custom_docs=True
         """
         if os.path.exists(kb_file.filepath):
-            self.delete_doc(kb_file, **kwargs)
-            return self.add_doc(kb_file, docs=docs, **kwargs)
+            await self.delete_doc(kb_file, **kwargs)
+            return await self.add_doc(kb_file, docs=docs, **kwargs)
 
-    def exist_doc(self, file_name: str):
-        return file_exists_in_db(KnowledgeFile(knowledge_base_name=self.kb_name,
+    async def exist_doc(self, file_name: str):
+        return await file_exists_in_db(KnowledgeFile(knowledge_base_name=self.kb_name,
                                                filename=file_name))
 
-    def list_files(self):
-        return list_files_from_db(self.kb_name)
+    async def list_files(self):
+        return await list_files_from_db(self.kb_name)
 
     def count_files(self):
         return count_files_from_db(self.kb_name)

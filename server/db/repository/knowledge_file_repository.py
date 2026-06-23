@@ -7,6 +7,7 @@ from server.db.session import with_async_session, async_session_scope
 
 
 from sqlalchemy.future import select
+from sqlalchemy import func, delete
 
 @with_async_session
 async def list_file_num_docs_id_by_kb_name_and_file_name(session,
@@ -17,8 +18,9 @@ async def list_file_num_docs_id_by_kb_name_and_file_name(session,
     列出某知识库某文件对应的所有Document的id。
     返回形式：[str, ...]
     '''
-    doc_ids = session.query(FileDocModel.doc_id).filter_by(kb_name=kb_name, file_name=file_name).all()
-    return [int(_id[0]) for _id in doc_ids]
+    stmt = select(FileDocModel.doc_id).filter_by(kb_name=kb_name, file_name=file_name)
+    result = await session.execute(stmt)
+    return [int(row[0]) for row in result.all()]
 
 
 @with_async_session
@@ -31,13 +33,14 @@ async def list_docs_from_db(session,
     列出某知识库某文件对应的所有Document。
     返回形式：[{"id": str, "metadata": dict}, ...]
     '''
-    docs = session.query(FileDocModel).filter(FileDocModel.kb_name.ilike(kb_name))
+    stmt = select(FileDocModel).where(FileDocModel.kb_name.ilike(kb_name))
     if file_name:
-        docs = docs.filter(FileDocModel.file_name.ilike(file_name))
+        stmt = stmt.where(FileDocModel.file_name.ilike(file_name))
     for k, v in metadata.items():
-        docs = docs.filter(FileDocModel.meta_data[k].as_string() == str(v))
+        stmt = stmt.where(FileDocModel.meta_data[k].as_string() == str(v))
 
-    return [{"id": x.doc_id, "metadata": x.metadata} for x in docs.all()]
+    result = await session.execute(stmt)
+    return [{"id": x.doc_id, "metadata": x.meta_data} for x in result.scalars().all()]
 
 
 @with_async_session
@@ -49,14 +52,19 @@ async def delete_docs_from_db(session,
     删除某知识库某文件对应的所有Document，并返回被删除的Document。
     返回形式：[{"id": str, "metadata": dict}, ...]
     '''
-
-    print("检测到数据库中有同名的， 我现在要开始执行删除指令了！！！！！")
-    docs = list_docs_from_db(kb_name=kb_name, file_name=file_name)
-    query = session.query(FileDocModel).filter(FileDocModel.kb_name.ilike(kb_name))
+    # 先查询将要被删除的文档（与本次删除处于同一会话/事务）
+    select_stmt = select(FileDocModel).where(FileDocModel.kb_name.ilike(kb_name))
     if file_name:
-        query = query.filter(FileDocModel.file_name.ilike(file_name))
-    query.delete(synchronize_session=False)
-    session.commit()
+        select_stmt = select_stmt.where(FileDocModel.file_name.ilike(file_name))
+    result = await session.execute(select_stmt)
+    docs = [{"id": x.doc_id, "metadata": x.meta_data} for x in result.scalars().all()]
+
+    # 执行删除
+    del_stmt = delete(FileDocModel).where(FileDocModel.kb_name.ilike(kb_name))
+    if file_name:
+        del_stmt = del_stmt.where(FileDocModel.file_name.ilike(file_name))
+    await session.execute(del_stmt)
+    await session.commit()
     return docs
 
 
@@ -93,13 +101,20 @@ async def add_docs_to_db(session,
 
 @with_async_session
 async def count_files_from_db(session, kb_name: str) -> int:
-    return session.query(KnowledgeFileModel).filter(KnowledgeFileModel.kb_name.ilike(kb_name)).count()
+    stmt = (
+        select(func.count())
+        .select_from(KnowledgeFileModel)
+        .where(KnowledgeFileModel.kb_name.ilike(kb_name))
+    )
+    result = await session.execute(stmt)
+    return result.scalar() or 0
 
 
 @with_async_session
 async def list_files_from_db(session, kb_name):
-    files = session.query(KnowledgeFileModel).filter(KnowledgeFileModel.kb_name.ilike(kb_name)).all()
-    docs = [f.file_name for f in files]
+    stmt = select(KnowledgeFileModel).where(KnowledgeFileModel.kb_name.ilike(kb_name))
+    result = await session.execute(stmt)
+    docs = [f.file_name for f in result.scalars().all()]
     return docs
 
 
@@ -119,42 +134,33 @@ async def add_file_to_db(session,
         docs_count: 文档数量。
         custom_docs: 是否为自定义文档。
         doc_infos: 文档信息列表，形式为：[{"id": str, "metadata": dict}, ...]
-        user_id: 用户ID，默认为"default_user_id"。
 
     返回：
         bool: 如果操作成功，返回True。
     """
 
-    print("开始查询 KnowledgeBase...")
     stmt = select(KnowledgeBaseModel).where(KnowledgeBaseModel.kb_name == kb_file.kb_name)
     kb_result = await session.execute(stmt)
     kb = kb_result.scalars().first()
-    print(f"查询 KnowledgeBase 完成: {kb}")
 
     if kb:
-        print("KnowledgeBase 存在，开始查询 KnowledgeFile...")
         stmt = select(KnowledgeFileModel).where(
             KnowledgeFileModel.kb_name.ilike(kb_file.kb_name),
             KnowledgeFileModel.file_name.ilike(kb_file.filename)
         )
         file_result = await session.execute(stmt)
         existing_file = file_result.scalars().first()
-        print(f"查询 KnowledgeFile 完成: {existing_file}")
 
         mtime = kb_file.get_mtime()
         size = kb_file.get_size()
-        print(f"获取文件时间和大小：mtime={mtime}, size={size}")
 
         if existing_file:
-            print("文件存在，更新文件信息...")
             existing_file.file_mtime = mtime
             existing_file.file_size = size
             existing_file.docs_count = docs_count
             existing_file.custom_docs = custom_docs
             existing_file.file_version += 1
-            print("文件信息更新完成")
         else:
-            print("文件不存在，创建新文件...")
             new_file = KnowledgeFileModel(
                 file_name=kb_file.filename,
                 file_ext=kb_file.ext,
@@ -168,21 +174,22 @@ async def add_file_to_db(session,
             )
             session.add(new_file)
             kb.file_count += 1
-            print("新文件添加完成")
 
-        print("开始添加文档信息...")
-        await add_docs_to_db(kb_name=kb_file.kb_name, file_name=kb_file.filename, doc_infos=doc_infos)
-
-        print("文档信息添加完成")
+        # 在同一会话内写入文档信息，保证与文件记录处于同一事务
+        if doc_infos:
+            for doc_info in doc_infos:
+                session.add(FileDocModel(
+                    kb_name=kb_file.kb_name,
+                    file_name=kb_file.filename,
+                    doc_id=doc_info['id'],
+                    meta_data=doc_info['metadata'],
+                ))
 
         try:
-            print("开始提交事务...")
             await session.commit()
-            print("事务提交成功")
         except Exception as e:
             print(f"Error committing changes: {e}")
             await session.rollback()
-            print("事务回滚")
             raise
     else:
         print("KnowledgeBase 不存在，无法添加文件")
@@ -192,60 +199,78 @@ async def add_file_to_db(session,
 @with_async_session
 async def delete_file_from_db(session, kb_file: KnowledgeFile):
     # 使用异步查询获取文件
-    existing_file = await (session.execute(
+    result = await session.execute(
         select(KnowledgeFileModel)
         .filter(KnowledgeFileModel.file_name.ilike(kb_file.filename),
                 KnowledgeFileModel.kb_name.ilike(kb_file.kb_name))
-    )).scalars().first()
+    )
+    existing_file = result.scalars().first()
 
     if existing_file:
-        # 删除文件
+        # 删除文件记录
         await session.delete(existing_file)
-        await delete_docs_from_db(session, kb_name=kb_file.kb_name, file_name=kb_file.filename)
-        await session.commit()
 
-        # 异步查询关联的知识库
-        kb = await (session.execute(
+        # 删除该文件关联的所有文档（同一会话内联执行，避免嵌套会话）
+        await session.execute(
+            delete(FileDocModel).where(
+                FileDocModel.kb_name.ilike(kb_file.kb_name),
+                FileDocModel.file_name.ilike(kb_file.filename),
+            )
+        )
+
+        # 异步查询关联的知识库并更新文件计数
+        kb_result = await session.execute(
             select(KnowledgeBaseModel)
             .filter(KnowledgeBaseModel.kb_name.ilike(kb_file.kb_name))
-        )).scalars().first()
-
+        )
+        kb = kb_result.scalars().first()
         if kb:
             kb.file_count -= 1
-            await session.commit()
+
+        await session.commit()
 
     return True
 
 
 @with_async_session
 async def delete_files_from_db(session, knowledge_base_name: str):
-    session.query(KnowledgeFileModel).filter(KnowledgeFileModel.kb_name.ilike(knowledge_base_name)).delete(
-        synchronize_session=False)
-    session.query(FileDocModel).filter(FileDocModel.kb_name.ilike(knowledge_base_name)).delete(
-        synchronize_session=False)
-    kb = session.query(KnowledgeBaseModel).filter(KnowledgeBaseModel.kb_name.ilike(knowledge_base_name)).first()
+    await session.execute(
+        delete(KnowledgeFileModel).where(KnowledgeFileModel.kb_name.ilike(knowledge_base_name))
+    )
+    await session.execute(
+        delete(FileDocModel).where(FileDocModel.kb_name.ilike(knowledge_base_name))
+    )
+
+    result = await session.execute(
+        select(KnowledgeBaseModel).where(KnowledgeBaseModel.kb_name.ilike(knowledge_base_name))
+    )
+    kb = result.scalars().first()
     if kb:
         kb.file_count = 0
 
-    session.commit()
+    await session.commit()
     return True
 
 
 @with_async_session
 async def file_exists_in_db(session, kb_file: KnowledgeFile):
-    existing_file = (session.query(KnowledgeFileModel)
-                     .filter(KnowledgeFileModel.file_name.ilike(kb_file.filename),
-                             KnowledgeFileModel.kb_name.ilike(kb_file.kb_name))
-                     .first())
+    result = await session.execute(
+        select(KnowledgeFileModel)
+        .filter(KnowledgeFileModel.file_name.ilike(kb_file.filename),
+                KnowledgeFileModel.kb_name.ilike(kb_file.kb_name))
+    )
+    existing_file = result.scalars().first()
     return True if existing_file else False
 
 
 @with_async_session
 async def get_file_detail(session, kb_name: str, filename: str) -> dict:
-    file: KnowledgeFileModel = (session.query(KnowledgeFileModel)
-                                .filter(KnowledgeFileModel.file_name.ilike(filename),
-                                        KnowledgeFileModel.kb_name.ilike(kb_name))
-                                .first())
+    result = await session.execute(
+        select(KnowledgeFileModel)
+        .filter(KnowledgeFileModel.file_name.ilike(filename),
+                KnowledgeFileModel.kb_name.ilike(kb_name))
+    )
+    file: KnowledgeFileModel = result.scalars().first()
     if file:
         return {
             "kb_name": file.kb_name,

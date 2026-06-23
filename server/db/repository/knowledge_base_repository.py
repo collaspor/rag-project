@@ -29,14 +29,20 @@ async def add_kb_to_db(session, kb_name, kb_info, vs_type, embed_model, user_id)
 
 @with_async_session
 async def list_kbs_from_db(session, min_file_count: int = -1):
-    kbs = session.query(KnowledgeBaseModel.kb_name).filter(KnowledgeBaseModel.file_count > min_file_count).all()
-    kbs = [kb[0] for kb in kbs]
+    stmt = (
+        select(KnowledgeBaseModel.kb_name)
+        .where(KnowledgeBaseModel.file_count > min_file_count)
+    )
+    result = await session.execute(stmt)
+    kbs = [row[0] for row in result.all()]
     return kbs
 
 
 @with_async_session
 async def kb_exists(session, kb_name):
-    kb = session.query(KnowledgeBaseModel).filter(KnowledgeBaseModel.kb_name.ilike(kb_name)).first()
+    stmt = select(KnowledgeBaseModel).where(KnowledgeBaseModel.kb_name.ilike(kb_name))
+    result = await session.execute(stmt)
+    kb = result.scalars().first()
     status = True if kb else False
     return status
 
@@ -56,9 +62,12 @@ async def load_kb_from_db(session, kb_name):
 
 @with_async_session
 async def delete_kb_from_db(session, kb_name):
-    kb = session.query(KnowledgeBaseModel).filter(KnowledgeBaseModel.kb_name.ilike(kb_name)).first()
+    stmt = select(KnowledgeBaseModel).where(KnowledgeBaseModel.kb_name.ilike(kb_name))
+    result = await session.execute(stmt)
+    kb = result.scalars().first()
     if kb:
-        session.delete(kb)
+        await session.delete(kb)
+        await session.commit()
     return True
 
 

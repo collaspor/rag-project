@@ -44,11 +44,12 @@ class FaissKBService(KBService):
                                                      vector_name=self.vector_name,
                                                      embed_model=self.embed_model)
 
-    def save_vector_store(self):
+    async def save_vector_store(self):
         """
         保存向量存储。
         """
-        self.load_vector_store().save(self.vs_path)
+        vector_store = await self.load_vector_store()
+        return vector_store.save(self.vs_path)
 
     def get_doc_by_ids(self, ids: List[str]) -> List[Document]:
         """
@@ -199,7 +200,7 @@ class FaissKBService(KBService):
             ...
         os.makedirs(self.vs_path, exist_ok=True)
 
-    def exist_doc(self, file_name: str):
+    async def exist_doc(self, file_name: str):
         """
         检查文档是否存在。
 
@@ -209,7 +210,7 @@ class FaissKBService(KBService):
         返回：
         str: 返回 "in_db" 如果在数据库中，"in_folder" 如果在文件夹中，否则返回 False。
         """
-        if super().exist_doc(file_name):
+        if await super().exist_doc(file_name):
             return "in_db"
 
         content_path = os.path.join(self.kb_path, "content")

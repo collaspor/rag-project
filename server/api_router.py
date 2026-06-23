@@ -30,6 +30,12 @@ def create_app(run_mode: str = None):
     # 挂载路由
     mount_app_routes(app)
 
+    # 挂载新版自包含管理前端（免构建，访问 /app/）
+    import os
+    frontend_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+    if os.path.isdir(frontend_dir):
+        app.mount("/app", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+
     # 挂载 Vue 构建的前端静态文件夹
     app.mount("/", StaticFiles(directory="static/dist"), name="static")
     return app
@@ -38,6 +44,7 @@ def create_app(run_mode: str = None):
 
 from server.verify.utils import create_conversation, get_user_conversations, get_conversation_messages, ConversationResponse, MessageResponse
 from server.chat.knowledge_base_chat import knowledge_base_chat
+from server.knowledge_base.kb_doc_api import list_files, upload_docs, delete_docs
 
 
 def mount_app_routes(app: FastAPI):
@@ -75,6 +82,28 @@ def mount_app_routes(app: FastAPI):
              tags=["Messages"],
              summary="获取指定会话的消息列表",
              )(get_conversation_messages)
+
+    """
+    这里定义知识库管理相关的接口
+    """
+
+    # 获取知识库文件列表接口
+    app.get("/api/knowledge_base/list_files",
+            tags=["Knowledge Base Management"],
+            summary="获取知识库内的文件列表",
+            )(list_files)
+
+    # 上传文档并向量化接口
+    app.post("/api/knowledge_base/upload_docs",
+             tags=["Knowledge Base Management"],
+             summary="上传文件到知识库，并可选进行向量化",
+             )(upload_docs)
+
+    # 删除文档接口
+    app.post("/api/knowledge_base/delete_docs",
+             tags=["Knowledge Base Management"],
+             summary="删除知识库内指定的文件",
+             )(delete_docs)
 
 
 

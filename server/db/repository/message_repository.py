@@ -47,7 +47,7 @@ async def add_message_to_db(session,
                      chat_type=prompt_name,
                      query=query,
                      response=response,
-                     metadata=metadata
+                     meta_data=metadata
                      )
 
     # 添加到session，注意这里不用await
